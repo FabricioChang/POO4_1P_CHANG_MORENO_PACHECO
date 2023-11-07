@@ -5,12 +5,13 @@
 package clases;
 import enums.TipoUsuario;
 
+
 /**
  *
  * @author CltControl
  */
 public class Usuario {
-      private int cedula;
+  private int cedula;
   private int edad;
   private String nombre;
   private String apellido;
@@ -97,7 +98,8 @@ public class Usuario {
   public void setTipoDeUsuario(TipoUsuario tipo_de_usuario){
     this.tipo_de_usuario = tipo_de_usuario;
   }
-
+  
+  @Override
   public String toString(){
     return("Nombre: " + this.nombre + " - Apellido: " + this.apellido + " - Usuario: " + this.user + " - Edad: " + this.edad + " - Cédula: " + this.cedula + " - Número celular: " + this.numero_celular + " - Tipo de Usuario: " + this.tipo_de_usuario);
   }

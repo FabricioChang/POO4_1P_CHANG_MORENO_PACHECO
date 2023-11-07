@@ -35,7 +35,9 @@ public void setDestino(String destino){
 
 public void ruta(String origen,String destino){
     
-    }
+}
+
+@Override
 public String toString(){
     return("Origen: " + this.origen + " - Destino: " + this.destino );
   }
