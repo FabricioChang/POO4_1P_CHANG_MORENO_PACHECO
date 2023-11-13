@@ -8,7 +8,7 @@ import enums.TipoUsuario;
 
 /**
  *
- * @author CltControl
+ * @author Fchang
  */
 public class Usuario {
   private int cedula;
