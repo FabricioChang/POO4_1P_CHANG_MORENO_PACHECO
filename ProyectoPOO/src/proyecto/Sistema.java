@@ -2,6 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
+import java.util.ArrayList;
+import clases.Usuario;
+import clases.Servicios;
+import clases.Vehiculos;
 package proyecto;
 
 /**
@@ -10,11 +14,22 @@ package proyecto;
  */
 public class Sistema {
 
-    /**
-     * @param args the command line arguments
-     */
+   
+    public static ArrayList<Usuarios> listaUsuarios = new ArrayList<>();
+    public static ArrayList<Servicios> listaServicios = new ArrayList<>();
+    public static ArrayList<Vehiculos> listaVehiculos = new ArrayList<>();
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+       
+    }
+    public static void Iniciar_sesion(Usuario usuario, String contrasena){
+        
+    }
+    public static void Verificar_usuario(Usuario usuario,String contrasena){
+        
     }
     
+    public static void Mostar_menu(Usuario usuario){
+        
+    }
 }

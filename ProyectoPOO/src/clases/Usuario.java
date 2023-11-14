@@ -10,7 +10,7 @@ import enums.TipoUsuario;
  * @author CltControl
  */
 public class Usuario {
-      private int cedula;
+  private int cedula;
   private int edad;
   private String nombre;
   private String apellido;
