@@ -20,6 +20,7 @@ public class Sistema {
     public static ArrayList<Vehiculos> listaVehiculos = new ArrayList<>();
     
     public static void main(String[] args) {
+<<<<<<< HEAD
        
     }
     public static void Iniciar_sesion(Usuario usuario, String contrasena){
@@ -27,6 +28,12 @@ public class Sistema {
     }
     public static void Verificar_usuario(Usuario usuario,String contrasena){
         
+=======
+        // TODO code application logic here
+           
+               
+       
+>>>>>>> fcc3b153a7da6adfa196b20cd8bd02cfa89c4476
     }
     
     public static void Mostar_menu(Usuario usuario){
