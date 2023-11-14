@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package clases;
-
+import enums.MetodoPago;
+import clases.Cliente;
+import clases.Servicio;
 /**
  *
  * @author jlmor
@@ -22,8 +24,8 @@ public class Pago {
         this.fechaPago=fechaPago;
         this.numIdentificadorServicio=numIdentificadorServicio;
         this.formaPago=formaPago;
-        this.cliente = cliente;
-        this.servicio=servicio;
+        //this.cliente = cliente;
+        //this.servicio=servicio;
         this.valorPagar=valorPagar;
     }
     
