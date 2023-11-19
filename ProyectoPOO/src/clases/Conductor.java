@@ -1,10 +1,20 @@
 package clases;
+import enums.EstadoConductor;
+import enums.TipoUsuario;
 
 public class Conductor extends Usuario{
     private String numero_licencia;
     private EstadoConductor estado_conductor;
     private Vehiculo vehiculo;
 
+    public Conductor(String numero_licencia, EstadoConductor estado_conductor, Vehiculo vehiculo, int cedula, int edad, String nombre, String apellido, String user, String contrasena, int numero_celular, TipoUsuario tipo_de_usuario) {
+        super(cedula, edad, nombre, apellido, user, contrasena, numero_celular, tipo_de_usuario);
+        this.numero_licencia = numero_licencia;
+        this.estado_conductor = estado_conductor;
+        this.vehiculo = vehiculo;
+    }
+    
+    
     public void setNumero_licencia(String numero_licencia){
         this.numero_licencia = numero_licencia;
     }
@@ -13,7 +23,7 @@ public class Conductor extends Usuario{
         return numero_licencia;
     }
 
-    public void setEstado_conductor(String estado_conductor){
+    public void setEstado_conductor(EstadoConductor estado_conductor){
         this.estado_conductor = estado_conductor;
     }
 
@@ -21,7 +31,7 @@ public class Conductor extends Usuario{
         return estado_conductor;
     }
 
-    public void setVehiculo(String vehiculo){
+    public void setVehiculo(Vehiculo vehiculo){
         this.vehiculo = vehiculo;
     }
 

@@ -15,13 +15,13 @@ public class Cliente extends Usuario{
     }
 
     public EntregaEncomienda EntregaEncomienda(String origen, String destino){
-        System.out.println("Por favor ingrese el número de productos a enviar: ")
+        System.out.println("Por favor ingrese el número de productos a enviar: ");
         int numero_productos = sc.nextInt();
         sc.nextLine();
-        System.out.println("Por favor ingrese el peso total del envio: ")
+        System.out.println("Por favor ingrese el peso total del envio: ");
         double peso_total = sc.nextDouble();
         sc.nextLine();
-        System.out.println("Por favor ingrese el tipo de encomienda a enviar (MEDICINA o DOCUMENTOS): ")
+        System.out.println("Por favor ingrese el tipo de encomienda a enviar (MEDICINA o DOCUMENTOS): ");
         String tipo = sc.nextLine();
         TipoEncomienda tipo_encomienda = TipoEncomienda.valueOf(tipo)
         EntregaEncomienda entrega_encomienda = Entrega_encomienda(String origen, String destino, int numero_de_productos, double peso_total, TipoEncomienda tipo_encomienda);
