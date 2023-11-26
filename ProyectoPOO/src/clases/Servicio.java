@@ -1,29 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package clases;
 
-/**
- *
- * @author josue:)
- */
-public class Servicio {
-    private String origen;
-    private String destino;
-    private String fecha;
-    private String hora;
-    private Conductor conductor;
-    private double valorPagar;
-    private int identificador;
+import java.util.Random;
+
+public abstract class Servicio {
+    protected String origen;
+    protected String destino;
+    protected String fecha;
+    protected String hora;
+    protected Conductor conductor;
+    protected String identificador;
     
-    public Servicio(Ruta ruta, String fecha, String hora, double valorPagar, int identificador){
-        this.ruta = ruta;
+    public Servicio(String identificador, Conductor conductor, String origen, String destino, String fecha, String hora){
+        this.identificador = identificador;
+        this.conductor = conductor;
+        this.origen = origen;
+        this.destino = destino;
         this.fecha = fecha;
         this.hora = hora;
-        this.valorPagar = valorPagar;
-        this.identificador = identificador;
     }
     public String getOrigen(){
         return origen;
@@ -38,7 +32,7 @@ public class Servicio {
     }
 
     public void setDestino(String destino){
-        this.destino=destino;
+        this.destino = destino;
     }
 
     public void setFecha(String fecha){
@@ -65,26 +59,23 @@ public class Servicio {
         return conductor;
     }
 
-    public void setValorPagar(double valorPagar){
-        this.valorPagar = valorPagar;
-    }
-
-    public double getValorPagar(){
-        return valorPagar;
-    }
-
-    public void setIdentificador(int identificador){
-        this.identificador = identificador;
-    }
-
-    public int getIdentificador(){
+    public String getIdentificador() {
         return identificador;
     }
 
-    @Override
-    public String toString(){
-        return("Identificador: " + this.identificador + 
-                " - Origen: " + this.origen + " - Destino: " + this.destino + " - Fecha: " + this.fecha + " - Hora: " + this.hora + 
-                " - Valor a Pagar: " + this.valorPagar);
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
     }
+
+    public abstract double calcularValorPagar();
+ 
+    
+    @Override
+    public String toString() {
+    return  "Fecha: " + fecha +
+            "\nHora: " + hora +
+            "\nDesde: " + origen + 
+            "\nHasta: " + destino;       
+            
+}
 }
