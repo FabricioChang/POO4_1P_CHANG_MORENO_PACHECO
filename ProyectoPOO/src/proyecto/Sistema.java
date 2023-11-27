@@ -70,12 +70,15 @@ public class Sistema {
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("            BIENVENIDO AL SISTEMA           ");
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
-        Cliente cliente = Iniciar_sesion();
-        Mostar_menu();
+        Usuario usuario = Iniciar_sesion();
+        Mostar_menu(usuario);
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("                   ADIOS                    ");
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
     }
         
         
-    public static Cliente Iniciar_sesion(){
+    public static Usuario Iniciar_sesion(){
         Scanner entrada= new Scanner(System.in);
         boolean verificado = false;
         while (!verificado){
@@ -105,10 +108,26 @@ public class Sistema {
                 String contrasena_user = values[5];
                 String celular = values[6];
                 String tipo_usuario = values[7];
-                System.out.println("Por favor ingrese su tarjeta de credito para terminar el registro: ");
-                String tarjeta = sca.nextLine();
-                Cliente cliente = new Cliente(cedula, edad, nombre, apellido, user, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario),tarjeta);
-                listaUsuarios.add(cliente);                
+                if (TipoUsuario.valueOf(tipo_usuario).equals(TipoUsuario.C)){
+                    System.out.println("Por favor ingrese su tarjeta de credito para terminar el registro: ");
+                    String tarjeta = sca.nextLine();
+                    Usuario usuario = new Cliente(cedula, edad, nombre, apellido, user, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario),tarjeta);
+                    listaUsuarios.add(cliente);   
+                } else {
+                    System.out.println("Por favor ingrese su numero licencia: ");
+                    String licencia = sca.nextLine();
+                    System.out.println("Por favor seleccione su vehiculo: ");
+                    int counter = 1;
+                    for (Vehiculo v: listaVehiculos){
+                        System.out.println(counter +". " +v);
+                        counter++;
+                    }
+                    String num_veh = sca.nextInt();
+                    Vehiculo vehiculo = listaVehiculos[num_veh-1];
+                    Usuario usuario = new Conductor(licencia, "D", vehiculo, cedula, edad, nombre, apellido, user, contrasena_user, celular, tipo_usuario);
+                    listaUsuarios.add(usuario);
+                }
+                             
             }
             sc.close();
             sca.close();
@@ -116,8 +135,9 @@ public class Sistema {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return cliente
+        return usuario;
     }
+
     public static boolean Verificar_usuario(String usuario, String contrasena) {
         boolean verificado = false;
         File file = new File("usuarios.txt");
