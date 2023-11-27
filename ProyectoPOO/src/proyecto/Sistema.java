@@ -128,11 +128,46 @@ public class Sistema {
         System.out.println("/*                                      */");
         System.out.println("/****************************************/");
         
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("1. Solicitar servicio de taxi");
+        System.out.println("2. Solicitar comida a domicilio");
+        System.out.println("3. Solicitar entrega encomienda");
+        System.out.println("4. Consultar servicios");
         
+        int opcion = scanner.nextInt();
+
+        switch (opcion) {
+            case 1:
+                Scanner ingreso1= new Scanner(System.in);
+                System.out.print("Ingrese su origen");
+                String origen = ingreso1.nextLine();
+                System.out.println();
+                System.out.print("Ingrese su destino");
+                String destino = ingreso1.nextLine();
+                System.out.println();
+                System.out.print("Ingrese el numero de pasajeros");
+                int numPasajeros= ingreso1.nextInt();
+                ServicioTaxi taxi = new ServicioTaxi(String origen,String destino,int numPasajeros);
+                break;
+            case 2:
+                System.out.println("Has ingresado el número 2.");
+                break;
+            case 3:
+                System.out.println("Has ingresado el número 3.");
+                break;
+            case 4:
+                System.out.println("Has ingresado el número 4.");
+                break;      
+            default:
+                System.out.println("Número no válido. Ingrese un número del 1 al 4.");
+        }
+
+        scanner.close();
+    }
         
     }
 
 
-  }
 
 
