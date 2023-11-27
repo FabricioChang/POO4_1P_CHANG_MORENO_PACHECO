@@ -11,14 +11,14 @@ import enums.TipoUsuario;
  * @author Fchang
  */
 public abstract class Usuario {
-  private String cedula;
-  private int edad;
-  private String nombre;
-  private String apellido;
-  private String user;
-  private String contrasena;
-  private String numero_celular;
-  private TipoUsuario tipo_de_usuario;
+  protected String cedula;
+  protected int edad;
+  protected String nombre;
+  protected String apellido;
+  protected String user;
+  protected String contrasena;
+  protected String numero_celular;
+  protected TipoUsuario tipo_de_usuario;
 
   public Usuario(String cedula, int edad, String nombre, String apellido, String user, String contrasena, String numero_celular, TipoUsuario tipo_de_usuario){
     this.cedula = cedula;

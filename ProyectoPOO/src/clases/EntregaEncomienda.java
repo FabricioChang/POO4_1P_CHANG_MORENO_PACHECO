@@ -49,7 +49,6 @@ public class EntregaEncomienda extends Servicio {
         return "Tipo: Encomienda\nTipo encomienda: " + tipoEncomienda +
                "\nCantidad: " + numProductos +
                "\n" + super.toString();
-
     }
 }
 
