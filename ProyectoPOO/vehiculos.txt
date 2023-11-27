@@ -1,0 +1,7 @@
+codigoVehiculo,placa,modelo,marca,tipo
+23,GSX3847,CX3,Mazda,A
+12,GSD8475,Aveo,Chevrolet,A
+15,GAF9833,I10,Hyndai,A
+10,GSW2231,YBR,Suzuki,M
+20,GSD3121,XTZ,IGM,M
+11,MGW2100,YZF,Yamaha,M
