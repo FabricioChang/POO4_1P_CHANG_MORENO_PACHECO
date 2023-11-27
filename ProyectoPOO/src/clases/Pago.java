@@ -4,8 +4,8 @@
  */
 package clases;
 import enums.MetodoPago;
-import clases.Cliente;
-import clases.Servicio;
+import java.time.LocalDateTime;
+
 /**
  *
  * @author jlmor
@@ -13,24 +13,22 @@ import clases.Servicio;
 public class Pago {
     private int numIdentificadorPago;
     private String fechaPago;
-    private String numIdentificadorServicio;
+    private String IdentificadorServicio;
     private MetodoPago formaPago;
-    private Cliente cliente;
+    private String nombreCliente;
     private Servicio servicio;
     private double valorPagar;
+    private static int counter = 0;
     
-    public Pago (int numIdentificadorPago, String fechaPago, String numIdentificadorServicio,MetodoPago formaPago,Cliente cliente,Servicio servicio, double valorPagar){
-        this.numIdentificadorPago=numIdentificadorPago;
-        this.fechaPago=fechaPago;
-        this.numIdentificadorServicio=numIdentificadorServicio;
+    public Pago (String IdentificadorServicio,MetodoPago formaPago,String nombreCliente,Servicio servicio, double valorPagar){
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        this.numIdentificadorPago= ++counter;
+        this.fechaPago= currentDateTime.toLocalDate().toString();
+        this.IdentificadorServicio=IdentificadorServicio;
         this.formaPago=formaPago;
-        //this.cliente = cliente;
-        //this.servicio=servicio;
+        this.nombreCliente = nombreCliente;
+        this.servicio=servicio;
         this.valorPagar=valorPagar;
-    }
-    
-    public void Pago(String numIdentificadorPago,String fechaPago,String numIdentificadorServicio,MetodoPago formaPago,String cedulaCliente,double valorPagar){
-        
     }
     
     public int getnumIdentificadorPago(){
@@ -46,10 +44,10 @@ public class Pago {
         this.fechaPago=fechaPago;
     }
     public String getnumIdentificadorServicio(){
-        return numIdentificadorServicio;
+        return IdentificadorServicio;
     }
     public void setnumIdentificadorServicio(String numIdentificadorServicio){
-        this.numIdentificadorServicio=numIdentificadorServicio;
+        this.IdentificadorServicio=numIdentificadorServicio;
     }
     public MetodoPago getformaPago(){
         return formaPago;
@@ -57,11 +55,11 @@ public class Pago {
     public void setformaPago(MetodoPago formaPago){
         this.formaPago=formaPago;
     }
-    public Cliente getcliente(){
-        return cliente;
+    public String getNombreCliente(){
+        return nombreCliente;
     }
-    public void setcliente(Cliente cliente){
-        this.cliente=cliente;
+    public void setNombreCliente(String nombreCliente){
+        this.nombreCliente=nombreCliente;
     }
     public Servicio getservicio(){
         return servicio;
@@ -75,8 +73,10 @@ public class Pago {
    public void setvalorPagar(double valorPagar){
        this.valorPagar=valorPagar;
    }
+   
+   @Override
    public String toString(){
-    return("Identificador de pago: " + this.numIdentificadorPago + " - Fecha de pago: " + this.fechaPago + " - Identificador de servicio: " + this.numIdentificadorServicio + " - Forma de pago: " + this.formaPago + " - Cliente: " + this.cliente + " - Servicio: " + this.servicio + " - Valor a pagar: " + this.valorPagar);
+    return("Identificador de pago: " + this.numIdentificadorPago + " - Fecha de pago: " + this.fechaPago + " - Identificador de servicio: " + this.IdentificadorServicio + " - Forma de pago: " + this.formaPago + " - Cliente: " + this.nombreCliente + " - Servicio: " + this.servicio + " - Valor a pagar: " + this.valorPagar);
   }
 }
 
