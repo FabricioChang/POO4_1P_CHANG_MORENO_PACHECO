@@ -18,16 +18,15 @@ public class Sistema {
     public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     public static ArrayList<Servicio> listaServicios = new ArrayList<>();
     public static ArrayList<Vehiculo> listaVehiculos = new ArrayList<>();
-
+    private static String path_usuarios = "ProyectoPOO/usuarios.txt";
+    private static String path_vehiculos = "ProyectoPOO/vehiculos.txt";
     public static void main(String[] args) {
-        File file = new File("usuarios.txt");
-        File file_vehiculos = new File("vehiculos.txt");
-                try {
+        File file_vehiculos = new File(path_vehiculos);
+        try {
             Scanner sc = new Scanner(file_vehiculos);
             sc.nextLine();
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                System.out.println(line);
                 String[] values = line.split(",");
                 String placa = values[0];
                 String modelo = values[1];
@@ -40,33 +39,6 @@ public class Sistema {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        try {
-            Scanner sc = new Scanner(file);
-            Random random = new Random();
-            sc.nextLine();
-            while (sc.hasNextLine()) {
-                String linea = sc.nextLine();
-                System.out.println(linea);
-                String[] values = linea.split(",");
-                String cedula = values[0];
-                int edad = Integer.parseInt(values[1]);
-                String nombre = values[2];
-                String apellido = values[3];
-                String user = values[4];
-                String contrasena = values[5];
-                String celular = values[6];
-                String tipo_usuario = values[7];
-                if (tipo_usuario.equals("R")){
-                    int indice_azar = random.nextInt(listaUsuarios.size());
-                    listaUsuarios.add(new Conductor("`1234567890", "D", listaVehiculos.get(indice_azar), cedula, edad, nombre, apellido, user, contrasena, celular, TipoUsuario.valueOf(tipo_usuario)));
-                }
-            }
-            sc.close();
-        } 
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("            BIENVENIDO AL SISTEMA           ");
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
@@ -81,66 +53,69 @@ public class Sistema {
     public static Usuario Iniciar_sesion(){
         Scanner entrada= new Scanner(System.in);
         boolean verificado = false;
+        Usuario usuario = null;
+        String user = null;
+        String password = null;
         while (!verificado){
             System.out.print("Ingrese su usuario: ");
-            String user = entrada.nextLine();
+            user = entrada.nextLine();
             System.out.println();
             System.out.print("Ingrese su contraseña: ");
-            String password = entrada.nextLine();
+            password = entrada.nextLine();
             verificado = Verificar_usuario(user, password);
         }
-        entrada.close();
-        File file = new File("usuarios.txt");
-        sc.nextLine();
+        File file = new File(path_usuarios);
         try {
             Scanner sc = new Scanner(file);
-            Scanner sca = new Scanner(System.in);
             sc.nextLine();
             while (sc.hasNextLine()) {
                 String linea = sc.nextLine();
-                System.out.println(linea);
                 String[] values = linea.split(",");
                 String cedula = values[0];
                 int edad = Integer.parseInt(values[1]);
                 String nombre = values[2];
                 String apellido = values[3];
-                String user = values[4];
+                String user_txt = values[4];
                 String contrasena_user = values[5];
                 String celular = values[6];
                 String tipo_usuario = values[7];
-                if (TipoUsuario.valueOf(tipo_usuario).equals(TipoUsuario.C)){
-                    System.out.println("Por favor ingrese su tarjeta de credito para terminar el registro: ");
-                    String tarjeta = sca.nextLine();
-                    Usuario usuario = new Cliente(cedula, edad, nombre, apellido, user, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario),tarjeta);
-                    listaUsuarios.add(cliente);   
-                } else {
-                    System.out.println("Por favor ingrese su numero licencia: ");
-                    String licencia = sca.nextLine();
-                    System.out.println("Por favor seleccione su vehiculo: ");
-                    int counter = 1;
-                    for (Vehiculo v: listaVehiculos){
-                        System.out.println(counter +". " +v);
-                        counter++;
+                if (user.equals(user_txt)){
+                    if (TipoUsuario.valueOf(tipo_usuario).equals(TipoUsuario.C)){
+                        System.out.println("Por favor ingrese su tarjeta de credito para terminar el registro: ");
+                        String tarjeta = entrada.nextLine();
+                        usuario = new Cliente(cedula, edad, nombre, apellido, user, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario),tarjeta);
+                        System.out.println("Usuario registrado.");
+                        listaUsuarios.add(usuario);
+                    } else {
+                        System.out.println("Por favor ingrese su numero licencia: ");
+                        String licencia = entrada.nextLine();
+                        System.out.println("Por favor seleccione su vehiculo: ");
+                        int counter = 1;
+                        for (Vehiculo v: listaVehiculos){
+                            System.out.println(counter +". " +v);
+                            counter++;
+                        }
+                        int num_veh = entrada.nextInt();
+                        Vehiculo vehiculo = listaVehiculos.get(num_veh -1);
+                        usuario = new Conductor(licencia, "D", vehiculo, cedula, edad, nombre, apellido, user, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario));
+                        System.out.println("Usuario registrado.");
+                        listaUsuarios.add(usuario);
                     }
-                    String num_veh = sca.nextInt();
-                    Vehiculo vehiculo = listaVehiculos[num_veh-1];
-                    Usuario usuario = new Conductor(licencia, "D", vehiculo, cedula, edad, nombre, apellido, user, contrasena_user, celular, tipo_usuario);
-                    listaUsuarios.add(usuario);
+                    break;
                 }
-                             
             }
             sc.close();
-            sca.close();
-        } 
+        }
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        entrada.close();
         return usuario;
     }
 
     public static boolean Verificar_usuario(String usuario, String contrasena) {
         boolean verificado = false;
-        File file = new File("usuarios.txt");
+        File file = new File(path_usuarios);
         try {
             Scanner sc = new Scanner(file);
             sc.nextLine();
@@ -152,6 +127,7 @@ public class Sistema {
                 if (user.equals(usuario) && contrasena_user.equals(contrasena)) {
                     System.out.println("Usuario y contraseña correctos");
                     verificado = true;
+                    break;
                 }
             }
             sc.close();
@@ -173,17 +149,17 @@ public class Sistema {
         System.out.println("/****************************************/");
         System.out.println("Ingrese la opcion que desea realizar.");
         boolean correcto = false;
-        int eleccion = 0;
+        int eleccion;
         boolean repetir = true;
         while (repetir){
-            if (usuario.getTipoDeUsuario.equals(TipoUsuario.C)){
+            if (usuario.getTipoDeUsuario().equals(TipoUsuario.C)){
                 System.out.println("1. Solicitar servicio de taxi.");
                 System.out.println("2. Enviar una encomienda.");
                 System.out.println("3. Consultar servicio.");
                 System.out.println("4. Salir del sistema.");
-                do{
+                do {
                     eleccion = sc.nextInt();
-                    sc.nextline();
+                    sc.nextLine();
                     if (eleccion == 1 || eleccion == 2 || eleccion == 3 || eleccion == 4){
                         correcto = true;
                     } else{
@@ -194,18 +170,20 @@ public class Sistema {
                     }
                 } while (!correcto);
                 Cliente c = (Cliente) usuario;
-                if (eleccion == 1 || eleccion ==2){
-                    System.out.println("Ingrese su punto de origen: ");
-                    String origen = sc.nextLine();
-                    System.out.println("Ingrese su destino: ");
-                    String destino = sc.nextLine();
-                }
                 switch (eleccion){
                     case 1:
+                        System.out.println("Ingrese su punto de origen: ");
+                        String origen = sc.nextLine();
+                        System.out.println("Ingrese su destino: ");
+                        String destino = sc.nextLine();
                         listaServicios.add(c.Solicitar_taxi(origen, destino));
                         break;
                     case 2:
-                        listaServicios.add(c.EntregaEncomienda(origen, destino);
+                        System.out.println("Ingrese su punto de origen: ");
+                        String origen_2 = sc.nextLine();
+                        System.out.println("Ingrese su destino: ");
+                        String destino_2 = sc.nextLine();
+                        listaServicios.add(c.EntregaEncomienda(origen_2, destino_2));
                         break;
                     case 3:
                         c.Consultar_servicios();
@@ -214,7 +192,7 @@ public class Sistema {
                         repetir = false;
                         break;
                 }
-            } else if (usuario.getTipoDeUsuario.equals(TipoUsuario.R)){
+            } else if (usuario.getTipoDeUsuario().equals(TipoUsuario.R)){
                 System.out.println("1. Consultar servicios.");
                 System.out.println("2. Salir del sistema.");
                 do {
@@ -230,7 +208,7 @@ public class Sistema {
                 switch (eleccion){
                     case 1:
                         Conductor r = (Conductor) usuario;
-                        r.Consultar_servicios(r);
+                        r.Consultar_servicios();
                         break;
                     case 2:
                         repetir = false;
@@ -238,6 +216,7 @@ public class Sistema {
                 }
             }
         }
+        sc.close();
     }
   }
 

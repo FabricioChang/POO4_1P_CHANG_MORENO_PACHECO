@@ -1,7 +1,5 @@
 package clases;
 
-import java.util.Random;
-
 public class ServicioTaxi extends Servicio {
     private int numPasajeros;
     private final static double costoKm = 0.50;

@@ -41,9 +41,9 @@ public class Conductor extends Usuario{
     }
 
     @Override
-    public void Consultar_servicios(conductor){
+    public void Consultar_servicios(){
         for (Servicio s: Sistema.listaServicios){
-            if (s.getConductor().equals(conductor)){
+            if (s.getConductor().getUser().equals(user)){
                 System.out.println(s);
             }
         }
