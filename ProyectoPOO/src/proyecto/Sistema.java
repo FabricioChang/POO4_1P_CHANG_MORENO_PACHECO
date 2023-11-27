@@ -52,14 +52,21 @@ public class Sistema {
     public static void Iniciar_sesion(Usuario usuario, String contrasena){
         
     }
-    public static void Verificar_usuario(String usuario, String contrasena) {
-    for (Usuario u : listaUsuarios) {
-        if (u.getUser().equals(usuario) && u.getContrasena().equals(contrasena)) {
-            System.out.println("Usuario y contraseña correctos");
+   
+    public static boolean Verificar_usuario(String usuario, String contrasena) {
+        boolean verificado = false;
+        for (Usuario u : listaUsuarios) {
+            if (u.getUser().equals(usuario) && u.getContrasena().equals(contrasena)) {
+                verificado = true;
+            }
         }
+        if(verificado){
+            System.out.println("Usuario y contraseña correctos");
+        } else {
+            System.out.println("Usuario o contraseña incorrectos");
+        }
+        return verificado;
     }
-    System.out.println("Usuario o contraseña incorrectos");
-}
        
       
     public static void Mostar_menu(Usuario usuario){
