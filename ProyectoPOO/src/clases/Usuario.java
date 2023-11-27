@@ -10,17 +10,17 @@ import enums.TipoUsuario;
  *
  * @author Fchang
  */
-public class Usuario {
-  private int cedula;
+public abstract class Usuario {
+  private String cedula;
   private int edad;
   private String nombre;
   private String apellido;
   private String user;
   private String contrasena;
-  private int numero_celular;
+  private String numero_celular;
   private TipoUsuario tipo_de_usuario;
 
-  public Usuario(int cedula, int edad, String nombre, String apellido, String user, String contrasena, int numero_celular, TipoUsuario tipo_de_usuario){
+  public Usuario(String cedula, int edad, String nombre, String apellido, String user, String contrasena, String numero_celular, TipoUsuario tipo_de_usuario){
     this.cedula = cedula;
     this.edad = edad;
     this.nombre = nombre;
@@ -35,11 +35,11 @@ public class Usuario {
     
   }
 
-  public int getCedula(){
+  public String getCedula(){
     return cedula;
   }
 
-  public void setCedula(int cedula){
+  public void setCedula(String cedula){
     this.cedula = cedula;
   }
   
@@ -51,11 +51,11 @@ public class Usuario {
     this.edad = edad;
   }
   
-  public int getNumeroCelular(){
+  public String getNumeroCelular(){
     return numero_celular;
   }
 
-  public void setNumeroCelular(int numero_celular){
+  public void setNumeroCelular(String numero_celular){
     this.numero_celular = numero_celular;
   }
   

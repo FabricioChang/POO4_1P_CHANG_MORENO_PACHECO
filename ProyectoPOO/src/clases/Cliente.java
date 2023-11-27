@@ -1,15 +1,21 @@
 package clases;
-import java.utils.Scanner;
+import java.util.Scanner;
+import enums.*;
 
 public class Cliente extends Usuario{
     private String tarjeta_de_credito;
     Scanner sc = new Scanner(System.in);
+    
+    public Cliente(String cedula, int edad, String nombre, String apellido, String user, String contrasena, String numero_celular, TipoUsuario tipo_de_usuario, String tarjeta_de_credito){
+        super(cedula, edad, nombre, apellido, user, contrasena, numero_celular, tipo_de_usuario);
+        this.tarjeta_de_credito = tarjeta_de_credito;
+    }
 
     public ServicioTaxi Solicitar_taxi(String origen, String destino){
-        System.out.println("Por favor ingrese el número de pasajeros para este viaje: ")
+        System.out.println("Por favor ingrese el número de pasajeros para este viaje: ");
         int pasajeros = sc.nextInt();
         sc.nextLine();
-        ServicioTaxi servicio_taxi = Servicio_taxi(String origen, String destino, int numero_pasajeros);
+        ServicioTaxi servicio_taxi = new ServicioTaxi(origen, destino, pasajeros);
         System.out.println("Su taxi ha sido reservado.");
         return servicio_taxi;
     }
@@ -23,8 +29,8 @@ public class Cliente extends Usuario{
         sc.nextLine();
         System.out.println("Por favor ingrese el tipo de encomienda a enviar (MEDICINA o DOCUMENTOS): ");
         String tipo = sc.nextLine();
-        TipoEncomienda tipo_encomienda = TipoEncomienda.valueOf(tipo)
-        EntregaEncomienda entrega_encomienda = Entrega_encomienda(String origen, String destino, int numero_de_productos, double peso_total, TipoEncomienda tipo_encomienda);
+        TipoEncomienda tipo_encomienda = TipoEncomienda.valueOf(tipo);
+        EntregaEncomienda entrega_encomienda = new EntregaEncomienda(origen, destino, numero_productos, peso_total, tipo_encomienda);
         System.out.println("Su entrega de encomienda ha sido reservada.");
         return entrega_encomienda;
     }

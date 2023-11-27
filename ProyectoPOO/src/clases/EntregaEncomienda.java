@@ -6,8 +6,8 @@ public class EntregaEncomienda extends Servicio {
     private double pesoKg;
     private TipoEncomienda tipoEncomienda;
     
-    public EntregaEncomienda(String identificador, Conductor conductor, String origen, String destino, String fecha, String hora, int numProductos, double pesoKg, TipoEncomienda tipoEncomienda){
-        super(identificador, conductor, origen, destino, fecha, hora);
+    public EntregaEncomienda(String origen, String destino, int numProductos, double pesoKg, TipoEncomienda tipoEncomienda){
+        super(origen, destino);
         this.numProductos = numProductos;
         this.pesoKg = pesoKg;
         this.tipoEncomienda = tipoEncomienda;
@@ -46,8 +46,7 @@ public class EntregaEncomienda extends Servicio {
     
     @Override
     public String toString(){
-        return "Tipo: Encomienda" +
-               "\nTipo encomienda: " + tipoEncomienda +
+        return "Tipo: Encomienda\nTipo encomienda: " + tipoEncomienda +
                "\nCantidad: " + numProductos +
                "\n" + super.toString();
 

@@ -9,5 +9,5 @@ package enums;
  * @author CltControl
  */
 public enum TipoEncomienda {
-    MEDICINA, DOCUMENTOS, ROPA
+    MEDICINA, DOCUMENTOS
 }

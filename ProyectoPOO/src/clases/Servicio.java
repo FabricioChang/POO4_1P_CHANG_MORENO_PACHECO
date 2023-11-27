@@ -1,9 +1,12 @@
 
 package clases;
 
-import java.util.Random;
+import proyecto.Sistema;
+import java.util.ArrayList;
+import enums.*;
+import java.time.LocalDateTime;
 
-public abstract class Servicio {
+public abstract class Servicio{
     protected String origen;
     protected String destino;
     protected String fecha;
@@ -11,13 +14,24 @@ public abstract class Servicio {
     protected Conductor conductor;
     protected String identificador;
     
-    public Servicio(String identificador, Conductor conductor, String origen, String destino, String fecha, String hora){
-        this.identificador = identificador;
-        this.conductor = conductor;
+    public Servicio(String origen, String destino){
+        ArrayList<Usuario> listaUsuarios = Sistema.listaUsuarios;
+        for (Usuario u: listaUsuarios){
+            if (u.getTipoDeUsuario().equals(TipoUsuario.R)){
+                Conductor r = (Conductor) u;
+                if (r.getEstado_conductor().equals(EstadoConductor.D)){
+                    this.conductor = r;
+                }
+            }
+        }
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        String fechaActual = currentDateTime.toLocalDate().toString();
+        String horaActual = currentDateTime.toLocalTime().toString();
+        this.identificador = fechaActual + horaActual + conductor.getNombre();
         this.origen = origen;
         this.destino = destino;
-        this.fecha = fecha;
-        this.hora = hora;
+        this.fecha = fechaActual;
+        this.hora = horaActual;
     }
     public String getOrigen(){
         return origen;

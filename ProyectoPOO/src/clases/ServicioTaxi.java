@@ -6,8 +6,8 @@ public class ServicioTaxi extends Servicio {
     private int numPasajeros;
     private final static double costoKm = 0.50;
     
-    public ServicioTaxi(String identificador, Conductor conductor, String origen, String destino, String fecha, String hora, int numPasajeros){
-        super(identificador, conductor, origen, destino, fecha, hora);
+    public ServicioTaxi(String origen, String destino, int numPasajeros){
+        super(origen, destino);
         this.numPasajeros = numPasajeros;
     }
 
@@ -42,8 +42,7 @@ public class ServicioTaxi extends Servicio {
     
     @Override
     public String toString() {
-    return  "Tipo: Viaje" + 
-            "\nCantidad pasajeros: " + numPasajeros +
+    return  "Tipo: Viaje\nCantidad pasajeros: " + numPasajeros +
             "\n" + super.toString();       
 }
      

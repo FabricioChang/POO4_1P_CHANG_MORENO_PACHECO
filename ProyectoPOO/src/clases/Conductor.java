@@ -7,10 +7,10 @@ public class Conductor extends Usuario{
     private EstadoConductor estado_conductor;
     private Vehiculo vehiculo;
 
-    public Conductor(String numero_licencia, EstadoConductor estado_conductor, Vehiculo vehiculo, int cedula, int edad, String nombre, String apellido, String user, String contrasena, int numero_celular, TipoUsuario tipo_de_usuario) {
+    public Conductor(String numero_licencia, String estado_conductor, Vehiculo vehiculo, String cedula, int edad, String nombre, String apellido, String user, String contrasena, String numero_celular, TipoUsuario tipo_de_usuario) {
         super(cedula, edad, nombre, apellido, user, contrasena, numero_celular, tipo_de_usuario);
         this.numero_licencia = numero_licencia;
-        this.estado_conductor = estado_conductor;
+        this.estado_conductor = EstadoConductor.valueOf(estado_conductor);
         this.vehiculo = vehiculo;
     }
     
