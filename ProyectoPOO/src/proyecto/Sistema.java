@@ -56,7 +56,6 @@ public class Sistema {
     for (Usuario u : listaUsuarios) {
         if (u.getUser().equals(usuario) && u.getContrasena().equals(contrasena)) {
             System.out.println("Usuario y contraseña correctos");
-            return;
         }
     }
     System.out.println("Usuario o contraseña incorrectos");
