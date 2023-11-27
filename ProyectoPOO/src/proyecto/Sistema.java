@@ -70,24 +70,25 @@ public class Sistema {
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("            BIENVENIDO AL SISTEMA           ");
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
-        Iniciar_sesion();
-        
-
+        Cliente cliente = Iniciar_sesion();
+        Mostar_menu();
     }
         
         
-    public static void Iniciar_sesion(){
+    public static Cliente Iniciar_sesion(){
         Scanner entrada= new Scanner(System.in);
-        System.out.print("Ingrese su usuario: ");
-        String user = entrada.nextLine();
-         System.out.println();
-        System.out.print("Ingrese su contraseña: ");
-        String password = entrada.nextLine();
-        entrada.close();
-    }
-    public static boolean Verificar_usuario(String usuario, String contrasena) {
         boolean verificado = false;
+        while (!verificado){
+            System.out.print("Ingrese su usuario: ");
+            String user = entrada.nextLine();
+            System.out.println();
+            System.out.print("Ingrese su contraseña: ");
+            String password = entrada.nextLine();
+            verificado = Verificar_usuario(user, password);
+        }
+        entrada.close();
         File file = new File("usuarios.txt");
+        sc.nextLine();
         try {
             Scanner sc = new Scanner(file);
             Scanner sca = new Scanner(System.in);
@@ -104,11 +105,33 @@ public class Sistema {
                 String contrasena_user = values[5];
                 String celular = values[6];
                 String tipo_usuario = values[7];
+                System.out.println("Por favor ingrese su tarjeta de credito para terminar el registro: ");
+                String tarjeta = sca.nextLine();
+                Cliente cliente = new Cliente(cedula, edad, nombre, apellido, user, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario),tarjeta);
+                listaUsuarios.add(cliente);                
+            }
+            sc.close();
+            sca.close();
+        } 
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return cliente
+    }
+    public static boolean Verificar_usuario(String usuario, String contrasena) {
+        boolean verificado = false;
+        File file = new File("usuarios.txt");
+        try {
+            Scanner sc = new Scanner(file);
+            sc.nextLine();
+            while (sc.hasNextLine()) {
+                String linea = sc.nextLine();
+                String[] values = linea.split(",");
+                String user = values[4];
+                String contrasena_user = values[5];
                 if (user.equals(usuario) && contrasena_user.equals(contrasena)) {
-                    System.out.println("Usuario y contraseña correctos, por favor ingrese su tarjeta de credito para terminar el registro: ");
-                    String tarjeta = sca.nextLine();
+                    System.out.println("Usuario y contraseña correctos");
                     verificado = true;
-                    listaUsuarios.add(new Cliente(cedula, edad, nombre, apellido, user, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario),tarjeta));
                 }
             }
             sc.close();
@@ -124,50 +147,78 @@ public class Sistema {
        
       
     public static void Mostar_menu(Usuario usuario){
+        Scanner sc = new Scanner(System.in);
         System.out.println("/*****************MENU*******************/");
         System.out.println("/*                                      */");
         System.out.println("/****************************************/");
-        
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("1. Solicitar servicio de taxi");
-        System.out.println("2. Solicitar comida a domicilio");
-        System.out.println("3. Solicitar entrega encomienda");
-        System.out.println("4. Consultar servicios");
-        
-        int opcion = scanner.nextInt();
-
-        switch (opcion) {
-            case 1:
-                Scanner ingreso1= new Scanner(System.in);
-                System.out.print("Ingrese su origen");
-                String origen = ingreso1.nextLine();
-                System.out.println();
-                System.out.print("Ingrese su destino");
-                String destino = ingreso1.nextLine();
-                System.out.println();
-                System.out.print("Ingrese el numero de pasajeros");
-                int numPasajeros= ingreso1.nextInt();
-                ServicioTaxi taxi = new ServicioTaxi(String origen,String destino,int numPasajeros);
-                break;
-            case 2:
-                System.out.println("Has ingresado el número 2.");
-                break;
-            case 3:
-                System.out.println("Has ingresado el número 3.");
-                break;
-            case 4:
-                System.out.println("Has ingresado el número 4.");
-                break;      
-            default:
-                System.out.println("Número no válido. Ingrese un número del 1 al 4.");
+        System.out.println("Ingrese la opcion que desea realizar.");
+        boolean correcto = false;
+        int eleccion = 0;
+        boolean repetir = true;
+        while (repetir){
+            if (usuario.getTipoDeUsuario.equals(TipoUsuario.C)){
+                System.out.println("1. Solicitar servicio de taxi.");
+                System.out.println("2. Enviar una encomienda.");
+                System.out.println("3. Consultar servicio.");
+                System.out.println("4. Salir del sistema.");
+                do{
+                    eleccion = sc.nextInt();
+                    sc.nextline();
+                    if (eleccion == 1 || eleccion == 2 || eleccion == 3 || eleccion == 4){
+                        correcto = true;
+                    } else{
+                        System.out.println("Por favor ingrese una opcion correcta.");
+                        System.out.println("1. Solicitar servicio de taxi.");
+                        System.out.println("2. Enviar una encomienda.");
+                        System.out.println("3. Consultar servicios.");
+                    }
+                } while (!correcto);
+                Cliente c = (Cliente) usuario;
+                if (eleccion == 1 || eleccion ==2){
+                    System.out.println("Ingrese su punto de origen: ");
+                    String origen = sc.nextLine();
+                    System.out.println("Ingrese su destino: ");
+                    String destino = sc.nextLine();
+                }
+                switch (eleccion){
+                    case 1:
+                        c.Solicitar_taxi(origen, destino);
+                        break;
+                    case 2:
+                        c.EntregaEncomienda(origen, destino);
+                        break;
+                    case 3:
+                        c.Consultar_servicios();
+                        break;
+                    case 4:
+                        repetir = false;
+                        break;
+                }
+            } else if (usuario.getTipoDeUsuario.equals(TipoUsuario.R)){
+                System.out.println("1. Consultar servicios.");
+                System.out.println("2. Salir del sistema.");
+                do {
+                    eleccion = sc.nextInt();
+                    if (eleccion == 1 || eleccion ==2){
+                        correcto = true;
+                    } else {
+                        System.out.println("Por favor ingrese una opcion correcta.");
+                        System.out.println("1. Consultar servicios.");
+                        System.out.println("2. Salir del sistema.");
+                    }
+                } while (!correcto);
+                switch (eleccion){
+                    case 1:
+                        Conductor r = (Conductor) usuario;
+                        r.Consultar_servicios(r);
+                        break;
+                    case 2:
+                        repetir = false;
+                        break;
+                }
+            }
         }
-
-        scanner.close();
     }
-        
-    }
-
-
+  }
 
 
