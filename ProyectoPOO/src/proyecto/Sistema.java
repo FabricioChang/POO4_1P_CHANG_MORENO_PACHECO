@@ -1,5 +1,6 @@
 
 package proyecto;
+import enums.MetodoPago;
 import java.util.ArrayList;
 
 import clases.*;
@@ -57,8 +58,13 @@ public class Sistema {
                 String celular = values[6];
                 String tipo_usuario = values[7];
                 if (tipo_usuario.equals("R")){
+                    if (!listaUsuarios.isEmpty()) {
                     int indice_azar = random.nextInt(listaUsuarios.size());
                     listaUsuarios.add(new Conductor("`1234567890", "D", listaVehiculos.get(indice_azar), cedula, edad, nombre, apellido, user, contrasena, celular, TipoUsuario.valueOf(tipo_usuario)));
+                    }
+                    else{
+                       //System.out.println(listaUsuarios);
+                    }
                 }
             }
             sc.close();
@@ -70,20 +76,24 @@ public class Sistema {
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("            BIENVENIDO AL SISTEMA           ");
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
-        Iniciar_sesion();
-        
+        String[] User_Password = Iniciar_sesion();
+        Verificar_usuario(User_Password[0], User_Password[1]);
+        Mostar_menu(Usuario usuario);
 
     }
         
         
-    public static void Iniciar_sesion(){
+    public static String[] Iniciar_sesion(){
+        
         Scanner entrada= new Scanner(System.in);
         System.out.print("Ingrese su usuario: ");
         String user = entrada.nextLine();
-         System.out.println();
-        System.out.print("Ingrese su contraseña: ");
+        System.out.print("Ingrese su contrasena: ");
         String password = entrada.nextLine();
-        entrada.close();
+        
+        return new String[]{user,password};
+        
+        
     }
     public static boolean Verificar_usuario(String usuario, String contrasena) {
         boolean verificado = false;
@@ -148,7 +158,34 @@ public class Sistema {
                 System.out.println();
                 System.out.print("Ingrese el numero de pasajeros");
                 int numPasajeros= ingreso1.nextInt();
-                ServicioTaxi taxi = new ServicioTaxi(String origen,String destino,int numPasajeros);
+                ingreso1.nextLine();
+                ServicioTaxi taxi= new ServicioTaxi(origen,destino,numPasajeros);
+                System.out.print("Ingrese metodo de pago: (E/TC)");
+                String metodo = ingreso1.nextLine();
+                
+                if  (metodo.equalsIgnoreCase("E")){
+                    MetodoPago mpago= MetodoPago.E;
+                    taxi.calcularValorPagar();
+                }
+                else if (metodo.equalsIgnoreCase("TC")){
+                    MetodoPago mpago=MetodoPago.TC;
+                    taxi.calcularValorAPagar(true);
+                }
+//                else{
+//                    System.out.print("Metodo no valido");
+//                    System.out.print("Ingrese metodo de pago: (E/TC)");
+//                    String metodo = ingreso1.nextLine();
+//                }
+                System.out.print("¿Desea confirmar su viaje?");
+                String confirmacion= ingreso1.nextLine();
+                if (confirmacion.equalsIgnoreCase("Si")||confirmacion.equalsIgnoreCase("sí")){
+                    taxi.toString();
+                }
+                else{
+                    ingreso1.close();
+                    break;
+                }
+                ingreso1.close();
                 break;
             case 2:
                 System.out.println("Has ingresado el número 2.");
@@ -165,7 +202,7 @@ public class Sistema {
 
         scanner.close();
     }
-        
+    
     }
 
 
