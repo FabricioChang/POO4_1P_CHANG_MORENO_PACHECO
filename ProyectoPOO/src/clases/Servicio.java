@@ -21,6 +21,8 @@ public abstract class Servicio{
                 Conductor r = (Conductor) u;
                 if (r.getEstado_conductor().equals(EstadoConductor.D)){
                     this.conductor = r;
+                    r.setEstado_conductor(EstadoConductor.O);
+                    break;
                 }
             }
         }

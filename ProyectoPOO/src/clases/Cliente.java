@@ -1,9 +1,11 @@
 package clases;
 import java.util.Scanner;
 import enums.*;
+import java.util.ArrayList;
 
 public class Cliente extends Usuario{
     private String tarjeta_de_credito;
+    private ArrayList<Servicio> listaServiciosSolicitados = new ArrayList<>();
     
     public Cliente(String cedula, int edad, String nombre, String apellido, String user, String contrasena, String numero_celular, TipoUsuario tipo_de_usuario, String tarjeta_de_credito){
         super(cedula, edad, nombre, apellido, user, contrasena, numero_celular, tipo_de_usuario);
@@ -17,6 +19,7 @@ public class Cliente extends Usuario{
         sc.nextLine();
         ServicioTaxi servicio_taxi = new ServicioTaxi(origen, destino, pasajeros);
         Pagar_servicio(servicio_taxi);
+        listaServiciosSolicitados.add(servicio_taxi);
         System.out.println("Su taxi ha sido reservado.");
         sc.close();
         return servicio_taxi;
@@ -35,6 +38,7 @@ public class Cliente extends Usuario{
         TipoEncomienda tipo_encomienda = TipoEncomienda.valueOf(tipo);
         EntregaEncomienda entrega_encomienda = new EntregaEncomienda(origen, destino, numero_productos, peso_total, tipo_encomienda);
         Pagar_servicio(entrega_encomienda);
+        listaServiciosSolicitados.add(entrega_encomienda);
         System.out.println("Su entrega de encomienda ha sido reservada.");
         sc.close();
         return entrega_encomienda;
@@ -47,6 +51,13 @@ public class Cliente extends Usuario{
         Pago pago = new Pago(servicio.getIdentificador(),MetodoPago.valueOf(metodo), super.getNombre(), servicio, servicio.calcularValorPagar());
         System.out.println("Pago exitoso, su identificador de pago es: " + pago.getnumIdentificadorPago());
         sc.close();
+    }
+
+    @Override
+    public void Consultar_servicios(){
+        for (Servicio s: listaServiciosSolicitados){
+            System.out.println(s);
+        }
     }
 
     public void setTarjeta_de_credito(String tarjeta_de_credito){

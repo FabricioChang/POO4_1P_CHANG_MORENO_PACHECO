@@ -202,10 +202,10 @@ public class Sistema {
                 }
                 switch (eleccion){
                     case 1:
-                        c.Solicitar_taxi(origen, destino);
+                        listaServicios.add(c.Solicitar_taxi(origen, destino));
                         break;
                     case 2:
-                        c.EntregaEncomienda(origen, destino);
+                        listaServicios.add(c.EntregaEncomienda(origen, destino);
                         break;
                     case 3:
                         c.Consultar_servicios();

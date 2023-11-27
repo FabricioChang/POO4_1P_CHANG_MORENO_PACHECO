@@ -31,9 +31,7 @@ public abstract class Usuario {
     this.tipo_de_usuario = tipo_de_usuario;
   }
 
-  public void Consultar_servicios(){
-    
-  }
+  public abstract void Consultar_servicios();
 
   public String getCedula(){
     return cedula;

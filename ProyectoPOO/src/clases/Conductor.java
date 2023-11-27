@@ -1,6 +1,7 @@
 package clases;
 import enums.EstadoConductor;
 import enums.TipoUsuario;
+import proyecto.Sistema;
 
 public class Conductor extends Usuario{
     private String numero_licencia;
@@ -37,6 +38,15 @@ public class Conductor extends Usuario{
 
     public Vehiculo getVehiculo(){
         return vehiculo;
+    }
+
+    @Override
+    public void Consultar_servicios(conductor){
+        for (Servicio s: Sistema.listaServicios){
+            if (s.getConductor().equals(conductor)){
+                System.out.println(s);
+            }
+        }
     }
 
     @Override
