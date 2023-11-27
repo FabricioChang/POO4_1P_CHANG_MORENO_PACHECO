@@ -1,5 +1,4 @@
 
-
 package proyecto;
 import java.util.ArrayList;
 
@@ -46,11 +45,22 @@ public class Sistema {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("            BIENVENIDO AL SISTEMA           ");
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+        Iniciar_sesion();
         
     }
-    
-    public static void Iniciar_sesion(Usuario usuario, String contrasena){
         
+        
+    public static void Iniciar_sesion(){
+        Scanner entrada= new Scanner(System.in);
+        System.out.print("Ingrese su usuario: ");
+        String user = entrada.nextLine();
+         System.out.println();
+        System.out.print("Ingrese su contraseña: ");
+        String password = entrada.nextLine();
+        entrada.close();
     }
    
     public static boolean Verificar_usuario(String usuario, String contrasena) {
@@ -70,6 +80,11 @@ public class Sistema {
        
       
     public static void Mostar_menu(Usuario usuario){
+        System.out.println("/*****************MENU*******************/");
+        System.out.println("/*                                      */");
+        System.out.println("/****************************************/");
+        
+        
         
     }
 
