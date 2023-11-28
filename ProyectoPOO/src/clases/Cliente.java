@@ -14,7 +14,7 @@ public class Cliente extends Usuario{
 
     public ServicioTaxi Solicitar_taxi(String origen, String destino){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Por favor ingrese el número de pasajeros para este viaje: ");
+        System.out.println("Por favor ingrese el numero de pasajeros para este viaje: ");
         int pasajeros = sc.nextInt();
         sc.nextLine();
         ServicioTaxi servicio_taxi = new ServicioTaxi(origen, destino, pasajeros);
@@ -25,7 +25,7 @@ public class Cliente extends Usuario{
 
     public EntregaEncomienda EntregaEncomienda(String origen, String destino){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Por favor ingrese el número de productos a enviar: ");
+        System.out.println("Por favor ingrese el numero de productos a enviar: ");
         int numero_productos = sc.nextInt();
         sc.nextLine();
         System.out.println("Por favor ingrese el peso total del envio: ");

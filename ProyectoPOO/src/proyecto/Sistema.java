@@ -17,8 +17,8 @@ public class Sistema {
     public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     public static ArrayList<Servicio> listaServicios = new ArrayList<>();
     public static ArrayList<Vehiculo> listaVehiculos = new ArrayList<>();
-    private static String path_usuarios = "ProyectoPOO/usuarios.txt";
-    private static String path_vehiculos = "ProyectoPOO/vehiculos.txt";
+    private static String path_usuarios = "usuarios.txt";
+    private static String path_vehiculos = "vehiculos.txt";
     public static void main(String[] args) {
         File file_vehiculos = new File(path_vehiculos);
         try {
@@ -59,7 +59,7 @@ public class Sistema {
             System.out.print("Ingrese su usuario: ");
             user = entrada.nextLine();
             System.out.println();
-            System.out.print("Ingrese su contraseña: ");
+            System.out.print("Ingrese su contrasenia: ");
             password = entrada.nextLine();
             verificado = Verificar_usuario(user, password);
         }
@@ -120,7 +120,7 @@ public class Sistema {
                 String user = values[4];
                 String contrasena_user = values[5];
                 if (user.equals(usuario) && contrasena_user.equals(contrasena)) {
-                    System.out.println("Usuario y contraseña correctos");
+                    System.out.println("Usuario y contrasenia correctos");
                     verificado = true;
                     break;
                 }
@@ -131,7 +131,7 @@ public class Sistema {
             e.printStackTrace();
         }
         if(!verificado){
-            System.out.println("Usuario o contraseña incorrectos");
+            System.out.println("Usuario o contrasenia incorrectos");
         }
         return verificado;
     }
