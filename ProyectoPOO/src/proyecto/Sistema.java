@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import clases.*;
 import enums.*;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -81,6 +84,18 @@ public class Sistema {
                     if (TipoUsuario.valueOf(tipo_usuario).equals(TipoUsuario.C)){
                         System.out.println("Por favor ingrese su tarjeta de credito para terminar el registro: ");
                         String tarjeta = entrada.nextLine();
+    
+                        usuario = new Cliente(cedula,edad, nombre, apellido, user_txt, contrasena_user, celular,
+                                TipoUsuario.valueOf(tipo_usuario), tarjeta);
+
+                        String path = "clientes.txt";
+                        try (BufferedWriter br = new BufferedWriter(new FileWriter(path, true))) {
+                            br.write("cedula,edad,tarjeta\n");
+                            br.write(cedula + "," + edad + "," + tarjeta + "\n");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        
                         usuario = new Cliente(cedula, edad, nombre, apellido, user_txt, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario),tarjeta);
                     } else {
                         System.out.println("Por favor ingrese su numero licencia: ");
