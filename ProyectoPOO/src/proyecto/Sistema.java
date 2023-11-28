@@ -193,8 +193,21 @@ public class Sistema {
                         String origen_2 = scanner.nextLine();
                         System.out.println("Ingrese su destino: ");
                         String destino_2 = scanner.nextLine();
-                        Servicio servicio_2 = c.EntregaEncomienda(origen_2, destino_2);
-                        listaServicios.add(servicio_2);
+                        EntregaEncomienda servicioEncomienda = c.EntregaEncomienda(origen_2, destino_2);
+                        double valorEnc = servicioEncomienda.calcularValorPagar();
+                        System.out.println("Su valor a pagar es de: $" + valorEnc);
+                        System.out.println("Desea confirmar su encomienda?");
+                        System.out.println("1. Si");
+                        System.out.println("2. No");
+                        int continuarEnc = 0;
+                        while ((continuarEnc == 1 && continuarEnc != 2)||(continuarEnc != 1 && continuarEnc == 2)){
+                            continuarEnc = scanner.nextInt();
+                        }
+                        if (continuarEnc == 1){
+                            c.Pagar_servicio(servicioEncomienda, c);
+                            listaServicios.add(servicioEncomienda);
+                            c.listaServiciosSolicitados.add(servicioEncomienda);
+                        } 
                         break;
                     case 3:
                         c.Consultar_servicios();
