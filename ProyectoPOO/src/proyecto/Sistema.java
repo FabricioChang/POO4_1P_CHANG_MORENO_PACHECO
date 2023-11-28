@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Random;
 
 /**
  *
@@ -20,10 +21,11 @@ public class Sistema {
     public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     public static ArrayList<Servicio> listaServicios = new ArrayList<>();
     public static ArrayList<Vehiculo> listaVehiculos = new ArrayList<>();
-    private static String path_usuarios = "usuarios.txt";
-    private static String path_vehiculos = "vehiculos.txt";
+    private static String path_usuarios = "ProyectoPOO/usuarios.txt";
+    private static String path_vehiculos = "ProyectoPOO/vehiculos.txt";
     public static void main(String[] args) {
         File file_vehiculos = new File(path_vehiculos);
+        File file = new File(path_usuarios);
         try {
             Scanner sc = new Scanner(file_vehiculos);
             sc.nextLine();
@@ -38,6 +40,35 @@ public class Sistema {
             }
             sc.close();
         } 
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ArrayList<Integer> lista_vehiculos_usados =new ArrayList<>();
+        try (Scanner sc = new Scanner(file);) {
+            sc.nextLine();
+            while (sc.hasNextLine()) {
+                String linea = sc.nextLine();
+                String[] values = linea.split(",");
+                String cedula = values[0];
+                int edad = Integer.parseInt(values[1]);
+                String nombre = values[2];
+                String apellido = values[3];
+                String user_txt = values[4];
+                String contrasena_user = values[5];
+                String celular = values[6];
+                String tipo_usuario = values[7];
+                if (TipoUsuario.valueOf(tipo_usuario).equals(TipoUsuario.C)){
+                    Random rd = new Random();
+                    int azar;
+                    do {
+                        azar = rd.nextInt(listaVehiculos.size());
+                        lista_vehiculos_usados.add(azar);
+                    }while(lista_vehiculos_usados.contains(azar));
+                    Vehiculo vehiculo = listaVehiculos.get(azar);
+                    listaUsuarios.add(new Conductor(cedula, "D", vehiculo, cedula, edad, nombre, apellido, user_txt, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario)));
+                }
+            }
+        }
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -92,25 +123,11 @@ public class Sistema {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        
                         usuario = new Cliente(cedula, edad, nombre, apellido, user_txt, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario),tarjeta);
-                    } else {
-                        System.out.println("Por favor ingrese su numero licencia: ");
-                        String licencia = entrada.nextLine();
-                        System.out.println("Por favor seleccione su vehiculo: ");
-                        int counter = 1;
-                        for (Vehiculo v: listaVehiculos){
-                            System.out.println(counter +". " +v);
-                            counter++;
-                        }
-                        int num_veh = entrada.nextInt();
-                        entrada.nextLine();
-                        Vehiculo vehiculo = listaVehiculos.get(num_veh -1);
-                        usuario = new Conductor(licencia, "D", vehiculo, cedula, edad, nombre, apellido, user_txt, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario));
+                        System.out.println("Usuario registrado.");
+                        listaUsuarios.add(usuario);
+                        break;
                     }
-                    System.out.println("Usuario registrado.");
-                    listaUsuarios.add(usuario);
-                    break;
                 }
             }
         }
