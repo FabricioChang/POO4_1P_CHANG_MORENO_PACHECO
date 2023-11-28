@@ -28,9 +28,8 @@ public class ServicioTaxi extends Servicio {
         return subtotal;
     }
     
-    public double calcularValorAPagar(boolean tarjetaCredito) {
+    public double calcularValorPagar(boolean tarjetaCredito) {
         double subtotal = calcularValorPagar();
-        
         if (tarjetaCredito) {
             subtotal += subtotal * 0.10;
         }

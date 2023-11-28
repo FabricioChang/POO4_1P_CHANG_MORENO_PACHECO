@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Cliente extends Usuario{
     private String tarjeta_de_credito;
-    private ArrayList<Servicio> listaServiciosSolicitados = new ArrayList<>();
+    public ArrayList<Servicio> listaServiciosSolicitados = new ArrayList<>();
     
     public Cliente(String cedula, int edad, String nombre, String apellido, String user, String contrasena, String numero_celular, TipoUsuario tipo_de_usuario, String tarjeta_de_credito){
         super(cedula, edad, nombre, apellido, user, contrasena, numero_celular, tipo_de_usuario);
@@ -18,7 +18,6 @@ public class Cliente extends Usuario{
         int pasajeros = sc.nextInt();
         sc.nextLine();
         ServicioTaxi servicio_taxi = new ServicioTaxi(origen, destino, pasajeros);
-        listaServiciosSolicitados.add(servicio_taxi);
         System.out.println("Su taxi ha sido reservado.");
         sc.close();
         return servicio_taxi;
@@ -36,7 +35,6 @@ public class Cliente extends Usuario{
         String tipo = sc.nextLine();
         TipoEncomienda tipo_encomienda = TipoEncomienda.valueOf(tipo);
         EntregaEncomienda entrega_encomienda = new EntregaEncomienda(origen, destino, numero_productos, peso_total, tipo_encomienda);
-        listaServiciosSolicitados.add(entrega_encomienda);
         System.out.println("Su entrega de encomienda ha sido reservada.");
         sc.close();
         return entrega_encomienda;

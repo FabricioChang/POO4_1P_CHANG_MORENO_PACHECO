@@ -151,20 +151,18 @@ public class Sistema {
                 System.out.println("1. Solicitar servicio de taxi.");
                 System.out.println("2. Enviar una encomienda.");
                 System.out.println("3. Consultar servicio.");
-                System.out.println("4. Pagar por servicios.");
-                System.out.println("5. Salir del sistema.");
+                System.out.println("4. Salir del sistema.");
                 do {
                     eleccion = scanner.nextInt();
                     scanner.nextLine();
-                    if (eleccion == 1 || eleccion == 2 || eleccion == 3 || eleccion == 4 || eleccion == 5){
+                    if (eleccion == 1 || eleccion == 2 || eleccion == 3 || eleccion == 4 ){
                         correcto = true;
                     } else{
                         System.out.println("Por favor ingrese una opcion correcta.");
                         System.out.println("1. Solicitar servicio de taxi.");
                         System.out.println("2. Enviar una encomienda.");
                         System.out.println("3. Consultar servicios.");
-                        System.out.println("4. Pagar por servicios.");
-                        System.out.println("5. Salir del sistema.");
+                        System.out.println("4. Salir del sistema.");
                     }
                 } while (!correcto);
                 Cliente c = (Cliente) usuario;
@@ -174,8 +172,21 @@ public class Sistema {
                         String origen = scanner.nextLine();
                         System.out.println("Ingrese su destino: ");
                         String destino = scanner.nextLine();
-                        Servicio servicio = c.Solicitar_taxi(origen, destino);
-                        listaServicios.add(servicio);
+                        ServicioTaxi servicioTaxi = c.Solicitar_taxi(origen, destino);
+                        double valor = servicioTaxi.calcularValorPagar();
+                        System.out.println("Su valor a pagar es de: $" + valor);
+                        System.out.println("Desea confirmar su viaje?");
+                        System.out.println("1. Si");
+                        System.out.println("2. No");
+                        int continuar = 0;
+                        while ((continuar == 1 && continuar != 2)||(continuar != 1 && continuar == 2)){
+                            continuar = scanner.nextInt();
+                        }
+                        if (continuar == 1){
+                            c.Pagar_servicio(servicioTaxi, c);
+                            listaServicios.add(servicioTaxi);
+                            c.listaServiciosSolicitados.add(servicioTaxi);
+                        } 
                         break;
                     case 2:
                         System.out.println("Ingrese su punto de origen: ");
@@ -189,24 +200,6 @@ public class Sistema {
                         c.Consultar_servicios();
                         break;
                     case 4:
-                        System.out.println("Servicios por pagar.");
-                        int contador = 1;
-                        ArrayList<Servicio> lista = c.getListaServiciosSolicitados();
-                        for (Servicio s : lista){
-                            System.out.println(contador++ + ". " + s);
-                        }
-                        int seleccionado = 0;
-                        while (seleccionado < 1 || seleccionado >= lista.size()){
-                            System.out.println("Ingrese el numero del servicio a pagar.");
-                            seleccionado = scanner.nextInt();
-                            scanner.nextLine();
-                        }
-                        Servicio s = lista.get(seleccionado-1);
-                        if (s instanceof ServicioTaxi){
-
-                        }
-                        c.Pagar_servicio(servicio_2, c);
-                    case 5:
                         repetir = false;
                         break;
                 }
