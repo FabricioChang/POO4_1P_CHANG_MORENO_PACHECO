@@ -17,7 +17,7 @@ public abstract class Servicio{
     public Servicio(String origen, String destino){
         ArrayList<Usuario> listaUsuarios = Sistema.listaUsuarios;
         for (Usuario u: listaUsuarios){
-            if (u.getTipoDeUsuario().equals(TipoUsuario.R)){
+            if (u.getTipoDeUsuario().equals(TipoUsuario.valueOf("R"))){
                 Conductor r = (Conductor) u;
                 if (r.getEstado_conductor().equals(EstadoConductor.D)){
                     this.conductor = r;

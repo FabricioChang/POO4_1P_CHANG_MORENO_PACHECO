@@ -18,9 +18,9 @@ public abstract class Usuario {
   protected String user;
   protected String contrasena;
   protected String numero_celular;
-  protected TipoUsuario tipo_de_usuario;
+  protected TipoUsuario tipoDeUsuario;
 
-  public Usuario(String cedula, int edad, String nombre, String apellido, String user, String contrasena, String numero_celular, TipoUsuario tipo_de_usuario){
+  public Usuario(String cedula, int edad, String nombre, String apellido, String user, String contrasena, String numero_celular, TipoUsuario tipoDeUsuario){
     this.cedula = cedula;
     this.edad = edad;
     this.nombre = nombre;
@@ -28,7 +28,7 @@ public abstract class Usuario {
     this.user = user;
     this.contrasena = contrasena;
     this.numero_celular = numero_celular;
-    this.tipo_de_usuario = tipo_de_usuario;
+    this.tipoDeUsuario = tipoDeUsuario;
   }
 
   public abstract void Consultar_servicios();
@@ -90,15 +90,15 @@ public abstract class Usuario {
   }
   
   public TipoUsuario getTipoDeUsuario(){
-    return tipo_de_usuario;
+    return tipoDeUsuario;
   }
 
-  public void setTipoDeUsuario(TipoUsuario tipo_de_usuario){
-    this.tipo_de_usuario = tipo_de_usuario;
+  public void setTipoDeUsuario(TipoUsuario tipoDeUsuario){
+    this.tipoDeUsuario = tipoDeUsuario;
   }
   
   @Override
   public String toString(){
-    return("Nombre: " + this.nombre + " - Apellido: " + this.apellido + " - Usuario: " + this.user + " - Edad: " + this.edad + " - Cédula: " + this.cedula + " - Número celular: " + this.numero_celular + " - Tipo de Usuario: " + this.tipo_de_usuario);
+    return("Nombre: " + this.nombre + " - Apellido: " + this.apellido + " - Usuario: " + this.user + " - Edad: " + this.edad + " - Cédula: " + this.cedula + " - Número celular: " + this.numero_celular + " - Tipo de Usuario: " + this.tipoDeUsuario);
   }
 }

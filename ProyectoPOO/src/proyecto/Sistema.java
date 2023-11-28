@@ -57,7 +57,7 @@ public class Sistema {
                 String contrasena_user = values[5];
                 String celular = values[6];
                 String tipo_usuario = values[7];
-                if (TipoUsuario.valueOf(tipo_usuario).equals(TipoUsuario.C)){
+                if (TipoUsuario.valueOf(tipo_usuario).equals(TipoUsuario.R)){
                     Random rd = new Random();
                     int azar;
                     do {
@@ -210,6 +210,7 @@ public class Sistema {
                         int continuar = 0;
                         while (!(continuar == 1 || continuar == 2)){
                             continuar = scanner.nextInt();
+                            scanner.nextLine();
                         }
                         if (continuar == 1){
                             c.Pagar_servicio(servicioTaxi, c);
@@ -229,8 +230,9 @@ public class Sistema {
                         System.out.println("1. Si");
                         System.out.println("2. No");
                         int continuarEnc = 0;
-                        while ((continuarEnc == 1 && continuarEnc != 2)||(continuarEnc != 1 && continuarEnc == 2)){
+                        while (!(continuarEnc == 1 || continuarEnc == 2)){
                             continuarEnc = scanner.nextInt();
+                            scanner.nextLine();
                         }
                         if (continuarEnc == 1){
                             c.Pagar_servicio(servicioEncomienda, c);

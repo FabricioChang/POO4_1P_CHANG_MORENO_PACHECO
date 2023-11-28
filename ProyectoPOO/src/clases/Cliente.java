@@ -19,7 +19,6 @@ public class Cliente extends Usuario{
         sc.nextLine();
         ServicioTaxi servicio_taxi = new ServicioTaxi(origen, destino, pasajeros);
         System.out.println("Su taxi ha sido reservado.");
-        sc.close();
         return servicio_taxi;
     }
 
@@ -28,7 +27,7 @@ public class Cliente extends Usuario{
         System.out.println("Por favor ingrese el numero de productos a enviar: ");
         int numero_productos = sc.nextInt();
         sc.nextLine();
-        System.out.println("Por favor ingrese el peso total del envio: ");
+        System.out.println("Por favor ingrese el peso total en kg del envio: ");
         double peso_total = sc.nextDouble();
         sc.nextLine();
         System.out.println("Por favor ingrese el tipo de encomienda a enviar (MEDICINA o DOCUMENTOS): ");
@@ -36,7 +35,6 @@ public class Cliente extends Usuario{
         TipoEncomienda tipo_encomienda = TipoEncomienda.valueOf(tipo);
         EntregaEncomienda entrega_encomienda = new EntregaEncomienda(origen, destino, numero_productos, peso_total, tipo_encomienda);
         System.out.println("Su entrega de encomienda ha sido reservada.");
-        sc.close();
         return entrega_encomienda;
     }
 
@@ -59,7 +57,6 @@ public class Cliente extends Usuario{
                 System.out.println("Pago exitoso, su identificador de pago es: " + pago_e.getnumIdentificadorPago());
                 break;
         }
-        sc.close();
     }
 
     public void Pagar_servicio(EntregaEncomienda servicio, Cliente cliente){
@@ -81,7 +78,6 @@ public class Cliente extends Usuario{
                 System.out.println("Pago exitoso, su identificador de pago es: " + pago_e.getnumIdentificadorPago());
                 break;
         }
-        sc.close();
     }
 
     @Override
