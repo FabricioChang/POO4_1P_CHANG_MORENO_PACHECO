@@ -62,8 +62,8 @@ public class Sistema {
                     int azar;
                     do {
                         azar = rd.nextInt(listaVehiculos.size());
-                        lista_vehiculos_usados.add(azar);
                     }while(lista_vehiculos_usados.contains(azar));
+                    lista_vehiculos_usados.add(azar);
                     Vehiculo vehiculo = listaVehiculos.get(azar);
                     listaUsuarios.add(new Conductor(cedula, "D", vehiculo, cedula, edad, nombre, apellido, user_txt, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario)));
                 }

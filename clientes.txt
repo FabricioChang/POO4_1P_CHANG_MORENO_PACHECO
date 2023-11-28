@@ -1,0 +1,2 @@
+cedula,edad,tarjetaCredito
+0923547362,30,6780187123892
