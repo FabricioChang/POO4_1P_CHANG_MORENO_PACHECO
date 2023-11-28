@@ -87,7 +87,7 @@ public class Sistema {
 
                         String path = "clientes.txt";
                         try (BufferedWriter br = new BufferedWriter(new FileWriter(path, true))) {
-                            br.write("cedula,edad,tarjeta\n");
+                            br.write("cedula,edad,tarjetaCredito\n");
                             br.write(cedula + "," + edad + "," + tarjeta + "\n");
                         } catch (IOException e) {
                             e.printStackTrace();
