@@ -18,7 +18,6 @@ public class Cliente extends Usuario{
         int pasajeros = sc.nextInt();
         sc.nextLine();
         ServicioTaxi servicio_taxi = new ServicioTaxi(origen, destino, pasajeros);
-        Pagar_servicio(servicio_taxi);
         listaServiciosSolicitados.add(servicio_taxi);
         System.out.println("Su taxi ha sido reservado.");
         sc.close();
@@ -37,18 +36,17 @@ public class Cliente extends Usuario{
         String tipo = sc.nextLine();
         TipoEncomienda tipo_encomienda = TipoEncomienda.valueOf(tipo);
         EntregaEncomienda entrega_encomienda = new EntregaEncomienda(origen, destino, numero_productos, peso_total, tipo_encomienda);
-        Pagar_servicio(entrega_encomienda);
         listaServiciosSolicitados.add(entrega_encomienda);
         System.out.println("Su entrega de encomienda ha sido reservada.");
         sc.close();
         return entrega_encomienda;
     }
 
-    public void Pagar_servicio(Servicio servicio){
+    public void Pagar_servicio(Servicio servicio, Cliente cliente){
         Scanner sc = new Scanner(System.in);
         System.out.println("Ingrese su metodo de pago: \n Efectivo(E) \n Tarjeta de Credito (TC)");
         String metodo = sc.nextLine();
-        Pago pago = new Pago(servicio.getIdentificador(),MetodoPago.valueOf(metodo), super.getNombre(), servicio, servicio.calcularValorPagar());
+        Pago pago = new Pago(servicio.getIdentificador(),MetodoPago.valueOf(metodo), cliente, servicio, servicio.calcularValorPagar());
         System.out.println("Pago exitoso, su identificador de pago es: " + pago.getnumIdentificadorPago());
         sc.close();
     }
@@ -66,6 +64,14 @@ public class Cliente extends Usuario{
 
     public String getTarjeta_de_credito(){
         return tarjeta_de_credito;
+    }
+
+    public void setListaServiciosSolicitados(ArrayList<Servicio> lista){
+        this.listaServiciosSolicitados = lista;
+    }
+
+    public ArrayList<Servicio> getListaServiciosSolicitados(){
+        return listaServiciosSolicitados;
     }
 
     @Override

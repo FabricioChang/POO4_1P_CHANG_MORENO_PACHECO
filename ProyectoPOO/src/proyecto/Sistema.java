@@ -7,7 +7,6 @@ import enums.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.Random;
 
 /**
  *
@@ -51,7 +50,7 @@ public class Sistema {
         
         
     public static Usuario Iniciar_sesion(){
-        Scanner entrada= new Scanner(System.in);
+        Scanner entrada = new Scanner(System.in);
         boolean verificado = false;
         Usuario usuario = null;
         String user = null;
@@ -65,8 +64,7 @@ public class Sistema {
             verificado = Verificar_usuario(user, password);
         }
         File file = new File(path_usuarios);
-        try {
-            Scanner sc = new Scanner(file);
+        try (Scanner sc = new Scanner(file);) {
             sc.nextLine();
             while (sc.hasNextLine()) {
                 String linea = sc.nextLine();
@@ -83,9 +81,7 @@ public class Sistema {
                     if (TipoUsuario.valueOf(tipo_usuario).equals(TipoUsuario.C)){
                         System.out.println("Por favor ingrese su tarjeta de credito para terminar el registro: ");
                         String tarjeta = entrada.nextLine();
-                        usuario = new Cliente(cedula, edad, nombre, apellido, user, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario),tarjeta);
-                        System.out.println("Usuario registrado.");
-                        listaUsuarios.add(usuario);
+                        usuario = new Cliente(cedula, edad, nombre, apellido, user_txt, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario),tarjeta);
                     } else {
                         System.out.println("Por favor ingrese su numero licencia: ");
                         String licencia = entrada.nextLine();
@@ -96,20 +92,19 @@ public class Sistema {
                             counter++;
                         }
                         int num_veh = entrada.nextInt();
+                        entrada.nextLine();
                         Vehiculo vehiculo = listaVehiculos.get(num_veh -1);
-                        usuario = new Conductor(licencia, "D", vehiculo, cedula, edad, nombre, apellido, user, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario));
-                        System.out.println("Usuario registrado.");
-                        listaUsuarios.add(usuario);
+                        usuario = new Conductor(licencia, "D", vehiculo, cedula, edad, nombre, apellido, user_txt, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario));
                     }
+                    System.out.println("Usuario registrado.");
+                    listaUsuarios.add(usuario);
                     break;
                 }
             }
-            sc.close();
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        entrada.close();
         return usuario;
     }
 
@@ -143,7 +138,7 @@ public class Sistema {
        
       
     public static void Mostar_menu(Usuario usuario){
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         System.out.println("/*****************MENU*******************/");
         System.out.println("/*                                      */");
         System.out.println("/****************************************/");
@@ -156,39 +151,62 @@ public class Sistema {
                 System.out.println("1. Solicitar servicio de taxi.");
                 System.out.println("2. Enviar una encomienda.");
                 System.out.println("3. Consultar servicio.");
-                System.out.println("4. Salir del sistema.");
+                System.out.println("4. Pagar por servicios.");
+                System.out.println("5. Salir del sistema.");
                 do {
-                    eleccion = sc.nextInt();
-                    sc.nextLine();
-                    if (eleccion == 1 || eleccion == 2 || eleccion == 3 || eleccion == 4){
+                    eleccion = scanner.nextInt();
+                    scanner.nextLine();
+                    if (eleccion == 1 || eleccion == 2 || eleccion == 3 || eleccion == 4 || eleccion == 5){
                         correcto = true;
                     } else{
                         System.out.println("Por favor ingrese una opcion correcta.");
                         System.out.println("1. Solicitar servicio de taxi.");
                         System.out.println("2. Enviar una encomienda.");
                         System.out.println("3. Consultar servicios.");
+                        System.out.println("4. Pagar por servicios.");
+                        System.out.println("5. Salir del sistema.");
                     }
                 } while (!correcto);
                 Cliente c = (Cliente) usuario;
                 switch (eleccion){
                     case 1:
                         System.out.println("Ingrese su punto de origen: ");
-                        String origen = sc.nextLine();
+                        String origen = scanner.nextLine();
                         System.out.println("Ingrese su destino: ");
-                        String destino = sc.nextLine();
-                        listaServicios.add(c.Solicitar_taxi(origen, destino));
+                        String destino = scanner.nextLine();
+                        Servicio servicio = c.Solicitar_taxi(origen, destino);
+                        listaServicios.add(servicio);
                         break;
                     case 2:
                         System.out.println("Ingrese su punto de origen: ");
-                        String origen_2 = sc.nextLine();
+                        String origen_2 = scanner.nextLine();
                         System.out.println("Ingrese su destino: ");
-                        String destino_2 = sc.nextLine();
-                        listaServicios.add(c.EntregaEncomienda(origen_2, destino_2));
+                        String destino_2 = scanner.nextLine();
+                        Servicio servicio_2 = c.EntregaEncomienda(origen_2, destino_2);
+                        listaServicios.add(servicio_2);
                         break;
                     case 3:
                         c.Consultar_servicios();
                         break;
                     case 4:
+                        System.out.println("Servicios por pagar.");
+                        int contador = 1;
+                        ArrayList<Servicio> lista = c.getListaServiciosSolicitados();
+                        for (Servicio s : lista){
+                            System.out.println(contador++ + ". " + s);
+                        }
+                        int seleccionado = 0;
+                        while (seleccionado < 1 || seleccionado >= lista.size()){
+                            System.out.println("Ingrese el numero del servicio a pagar.");
+                            seleccionado = scanner.nextInt();
+                            scanner.nextLine();
+                        }
+                        Servicio s = lista.get(seleccionado-1);
+                        if (s instanceof ServicioTaxi){
+
+                        }
+                        c.Pagar_servicio(servicio_2, c);
+                    case 5:
                         repetir = false;
                         break;
                 }
@@ -196,8 +214,9 @@ public class Sistema {
                 System.out.println("1. Consultar servicios.");
                 System.out.println("2. Salir del sistema.");
                 do {
-                    eleccion = sc.nextInt();
-                    if (eleccion == 1 || eleccion ==2){
+                    eleccion = scanner.nextInt();
+                    scanner.nextLine();
+                    if (eleccion == 1 || eleccion == 2){
                         correcto = true;
                     } else {
                         System.out.println("Por favor ingrese una opcion correcta.");
@@ -216,8 +235,8 @@ public class Sistema {
                 }
             }
         }
-        sc.close();
+        scanner.close();
     }
-  }
+}
 
 

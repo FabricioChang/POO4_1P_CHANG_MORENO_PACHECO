@@ -15,18 +15,18 @@ public class Pago {
     private String fechaPago;
     private String IdentificadorServicio;
     private MetodoPago formaPago;
-    private String nombreCliente;
+    private Cliente cliente;
     private Servicio servicio;
     private double valorPagar;
     private static int counter = 0;
     
-    public Pago (String IdentificadorServicio,MetodoPago formaPago,String nombreCliente,Servicio servicio, double valorPagar){
+    public Pago (String IdentificadorServicio,MetodoPago formaPago,Cliente cliente,Servicio servicio, double valorPagar){
         LocalDateTime currentDateTime = LocalDateTime.now();
         this.numIdentificadorPago= ++counter;
         this.fechaPago= currentDateTime.toLocalDate().toString();
         this.IdentificadorServicio=IdentificadorServicio;
         this.formaPago=formaPago;
-        this.nombreCliente = nombreCliente;
+        this.cliente = cliente;
         this.servicio=servicio;
         this.valorPagar=valorPagar;
     }
@@ -55,11 +55,11 @@ public class Pago {
     public void setformaPago(MetodoPago formaPago){
         this.formaPago=formaPago;
     }
-    public String getNombreCliente(){
-        return nombreCliente;
+    public Cliente getCliente(){
+        return cliente;
     }
-    public void setNombreCliente(String nombreCliente){
-        this.nombreCliente=nombreCliente;
+    public void setCliente(Cliente cliente){
+        this.cliente=cliente;
     }
     public Servicio getservicio(){
         return servicio;
@@ -76,7 +76,7 @@ public class Pago {
    
    @Override
    public String toString(){
-    return("Identificador de pago: " + this.numIdentificadorPago + " - Fecha de pago: " + this.fechaPago + " - Identificador de servicio: " + this.IdentificadorServicio + " - Forma de pago: " + this.formaPago + " - Cliente: " + this.nombreCliente + " - Servicio: " + this.servicio + " - Valor a pagar: " + this.valorPagar);
+    return("Identificador de pago: " + this.numIdentificadorPago + " - Fecha de pago: " + this.fechaPago + " - Identificador de servicio: " + this.IdentificadorServicio + " - Forma de pago: " + this.formaPago + " - Cliente: " + this.cliente + " - Servicio: " + this.servicio + " - Valor a pagar: " + this.valorPagar);
   }
 }
 
