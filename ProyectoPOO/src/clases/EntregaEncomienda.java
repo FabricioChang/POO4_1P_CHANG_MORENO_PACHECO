@@ -43,6 +43,14 @@ public class EntregaEncomienda extends Servicio {
         double costoCarrera = 4.0; 
         return numProductos * costoEncomienda + costoCarrera;
     }
+
+    public double calcularValorPagar(boolean tarjetaCredito) {
+        double subtotal = calcularValorPagar();
+        if (tarjetaCredito) {
+            subtotal = subtotal * 1.10f;
+        }
+        return subtotal;
+    }
     
     @Override
     public String toString(){

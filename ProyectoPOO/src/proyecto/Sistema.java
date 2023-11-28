@@ -191,7 +191,7 @@ public class Sistema {
                         System.out.println("1. Si");
                         System.out.println("2. No");
                         int continuar = 0;
-                        while ((continuar == 1 && continuar != 2)||(continuar != 1 && continuar == 2)){
+                        while (!(continuar == 1 || continuar == 2)){
                             continuar = scanner.nextInt();
                         }
                         if (continuar == 1){

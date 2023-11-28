@@ -40,12 +40,47 @@ public class Cliente extends Usuario{
         return entrega_encomienda;
     }
 
-    public void Pagar_servicio(Servicio servicio, Cliente cliente){
+    public void Pagar_servicio(ServicioTaxi servicio, Cliente cliente){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Ingrese su metodo de pago: \n Efectivo(E) \n Tarjeta de Credito (TC)");
-        String metodo = sc.nextLine();
-        Pago pago = new Pago(servicio.getIdentificador(),MetodoPago.valueOf(metodo), cliente, servicio, servicio.calcularValorPagar());
-        System.out.println("Pago exitoso, su identificador de pago es: " + pago.getnumIdentificadorPago());
+        String metodo = null;
+        do {
+            System.out.println("Ingrese un metodo de pago correcto: \n Efectivo(E) \n Tarjeta de Credito (TC)");
+            metodo = sc.nextLine();
+        } while (!(metodo.equals("TC") || metodo.equals("E")));
+        switch(metodo){
+            case "TC":
+                double valor = servicio.calcularValorPagar(true);
+                Pago pago = new Pago(servicio.getIdentificador(),MetodoPago.valueOf(metodo), cliente, servicio, valor);
+                System.out.println("Pago exitoso, su identificador de pago es: " + pago.getnumIdentificadorPago());
+                break;
+            case "E":
+                double valor_e = servicio.calcularValorPagar();
+                Pago pago_e = new Pago(servicio.getIdentificador(),MetodoPago.valueOf(metodo), cliente, servicio, valor_e);
+                System.out.println("Pago exitoso, su identificador de pago es: " + pago_e.getnumIdentificadorPago());
+                break;
+        }
+        sc.close();
+    }
+
+    public void Pagar_servicio(EntregaEncomienda servicio, Cliente cliente){
+        Scanner sc = new Scanner(System.in);
+        String metodo = null;
+        do {
+            System.out.println("Ingrese un metodo de pago correcto: \n Efectivo(E) \n Tarjeta de Credito (TC)");
+            metodo = sc.nextLine();
+        } while (!(metodo.equals("TC") || metodo.equals("E")));
+        switch(metodo){
+            case "TC":
+                double valor = servicio.calcularValorPagar(true);
+                Pago pago = new Pago(servicio.getIdentificador(),MetodoPago.valueOf(metodo), cliente, servicio, valor);
+                System.out.println("Pago exitoso, su identificador de pago es: " + pago.getnumIdentificadorPago());
+                break;
+            case "E":
+                double valor_e = servicio.calcularValorPagar();
+                Pago pago_e = new Pago(servicio.getIdentificador(),MetodoPago.valueOf(metodo), cliente, servicio, valor_e);
+                System.out.println("Pago exitoso, su identificador de pago es: " + pago_e.getnumIdentificadorPago());
+                break;
+        }
         sc.close();
     }
 
