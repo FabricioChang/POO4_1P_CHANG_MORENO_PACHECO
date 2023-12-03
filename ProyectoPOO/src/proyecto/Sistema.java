@@ -146,11 +146,11 @@ public class Sistema {
                                         while(scanne.hasNextLine()){
                                             String lineas = scanne.nextLine();
                                             String splitLine[] = lineas.split(",");
-                                            String placa = splitLine[0];
-                                            String modelo = splitLine[1];
-                                            String marca = splitLine[2];
-                                            String tipo = splitLine[3];
-                                            String codigoVehiculo1 = splitLine[4];
+                                            String codigoVehiculo1 = splitLine[0];
+                                            String placa = splitLine[1];
+                                            String modelo = splitLine[2];
+                                            String marca = splitLine[3];
+                                            String tipo = splitLine[4];
                                             if (codigoVehiculo.equals(codigoVehiculo1)){
                                                usuario = new Conductor(numero_licencia, estado, new Vehiculo(placa, modelo, marca, TipoVehiculo.valueOf(tipo)),cedula, edad, nombre, apellido, user_txt,contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario));
                                                break;

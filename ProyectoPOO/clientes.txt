@@ -1,0 +1,2 @@
+cedula,edad,tarjetaCredito
+1282321123,33,2103021432432423423
