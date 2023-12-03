@@ -21,8 +21,8 @@ public class Sistema {
     public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     public static ArrayList<Servicio> listaServicios = new ArrayList<>();
     public static ArrayList<Vehiculo> listaVehiculos = new ArrayList<>();
-    private static String path_usuarios = "ProyectoPOO/usuarios.txt";
-    private static String path_vehiculos = "ProyectoPOO/vehiculos.txt";
+    private static String path_usuarios = "usuarios.txt";
+    private static String path_vehiculos = "vehiculos.txt";
     public static void main(String[] args) {
         File file_vehiculos = new File(path_vehiculos);
         File file = new File(path_usuarios);
