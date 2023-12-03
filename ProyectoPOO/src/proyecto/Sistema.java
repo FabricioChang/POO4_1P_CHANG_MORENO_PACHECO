@@ -32,10 +32,10 @@ public class Sistema {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 String[] values = line.split(",");
-                String placa = values[0];
-                String modelo = values[1];
-                String marca = values[2];
-                String tipo = values[3];
+                String placa = values[1];
+                String modelo = values[2];
+                String marca = values[3];
+                String tipo = values[4];
                 listaVehiculos.add(new Vehiculo(placa, modelo, marca, TipoVehiculo.valueOf(tipo)));
             }
             sc.close();
@@ -143,7 +143,6 @@ public class Sistema {
                                     try{
                                         File archiv = new File("vehiculos.txt");
                                         Scanner scanne = new Scanner(archiv);
-                                        sc.nextLine();
                                         while(scanne.hasNextLine()){
                                             String lineas = scanne.nextLine();
                                             String splitLine[] = lineas.split(",");
