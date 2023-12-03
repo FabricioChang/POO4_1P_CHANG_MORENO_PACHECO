@@ -128,6 +128,47 @@ public class Sistema {
                         listaUsuarios.add(usuario);
                         break;
                     }
+                    else if(TipoUsuario.valueOf(tipo_usuario).equals(TipoUsuario.R)){
+                        try{
+                            File archivo = new File("conductores.txt");
+                            Scanner scanner = new Scanner(archivo);
+                            sc.nextLine();
+                            while(scanner.hasNextLine()){
+                                String line = scanner.nextLine();
+                                String datos[] = line.split(",");
+                                String numero_licencia = datos[0];
+                                String estado = datos[1];
+                                String codigoVehiculo = datos[2];
+                                if(cedula.equals(numero_licencia)){
+                                    try{
+                                        File archiv = new File("vehiculos.txt");
+                                        Scanner scanne = new Scanner(archiv);
+                                        sc.nextLine();
+                                        while(scanne.hasNextLine()){
+                                            String lineas = scanne.nextLine();
+                                            String splitLine[] = lineas.split(",");
+                                            String placa = splitLine[0];
+                                            String modelo = splitLine[1];
+                                            String marca = splitLine[2];
+                                            String tipo = splitLine[3];
+                                            String codigoVehiculo1 = splitLine[4];
+                                            if (codigoVehiculo.equals(codigoVehiculo1)){
+                                               usuario = new Conductor(numero_licencia, estado, new Vehiculo(placa, modelo, marca, TipoVehiculo.valueOf(tipo)),cedula, edad, nombre, apellido, user_txt,contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario));
+                                               break;
+                                            }
+                                        }
+                                        scanne.close();
+                                    }catch(FileNotFoundException o){
+                                        o.printStackTrace();
+                                    }  
+                                break;
+                                }  
+                            }
+                            scanner.close();
+                        }catch(FileNotFoundException e){
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         }
