@@ -68,6 +68,7 @@ public class Sistema {
                     listaUsuarios.add(new Conductor(cedula, "D", vehiculo, cedula, edad, nombre, apellido, user_txt, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario)));
                 }
             }
+            sc.close();
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -116,9 +117,7 @@ public class Sistema {
                         try{
                             File archivoCliente = new File("clientes.txt");
                             boolean yaRegistrado = false;
-                            
-   
-                            
+                                                      
                             if(!archivoCliente.exists()){
                                 try (BufferedWriter br = new BufferedWriter(new FileWriter(archivoCliente, true))) {
                                
@@ -139,9 +138,11 @@ public class Sistema {
                                         System.out.println("Ya esta registrado");
                                         yaRegistrado = true;
                                         usuario = new Cliente(cedula, edad, nombre, apellido, user_txt, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario),tarjetaRegistrada);
+                                        listaUsuarios.add(usuario);
                                         break;
                                 }   
                             }
+                            leer.close();
                             if(!yaRegistrado){
                                 System.out.println("Por favor ingrese su tarjeta de credito para terminar el registro: ");
                                 String tarjeta = entrada.nextLine();
@@ -157,7 +158,7 @@ public class Sistema {
                                     listaUsuarios.add(usuario);
                                     break;
                             }
-                            leer.close();
+                            
                         }catch(FileNotFoundException x){
                             x.printStackTrace();  
                         }      
@@ -209,6 +210,7 @@ public class Sistema {
                     }
                 }
             }
+            sc.close();
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -340,8 +342,13 @@ public class Sistema {
                         System.out.println("2. Salir del sistema.");
                     }
                 } while (!correcto);
+
                 switch (eleccion){
                     case 1:
+                        System.out.println("/***************SERVICIO ASIGNADO***************/");
+                        System.out.println("/*                                             */");
+                        System.out.println("/***********************************************/");
+                        System.out.println();
                         Conductor r = (Conductor) usuario;
                         r.Consultar_servicios();
                         break;

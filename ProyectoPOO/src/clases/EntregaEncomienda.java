@@ -54,7 +54,7 @@ public class EntregaEncomienda extends Servicio {
     
     @Override
     public String toString(){
-        return "Tipo: Encomienda\nTipo encomienda: " + tipoEncomienda +
+        return "\n/*****************************/\nTipo: Encomienda\nTipo encomienda: " + tipoEncomienda +
                "\nCantidad: " + numProductos +
                "\n" + super.toString();
     }

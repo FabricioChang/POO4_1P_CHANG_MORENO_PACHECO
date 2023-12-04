@@ -38,7 +38,7 @@ public class ServicioTaxi extends Servicio {
     
     @Override
     public String toString() {
-    return  "Tipo: Viaje\nCantidad pasajeros: " + numPasajeros +
+    return  "/\n*****************************/\nTipo: Viaje\nCantidad pasajeros: " + numPasajeros +
             "\n" + super.toString();       
 }
      
