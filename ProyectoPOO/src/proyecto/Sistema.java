@@ -113,21 +113,60 @@ public class Sistema {
                 String tipo_usuario = values[7];
                 if (user.equals(user_txt)){
                     if (TipoUsuario.valueOf(tipo_usuario).equals(TipoUsuario.C)){
-                        System.out.println("Por favor ingrese su tarjeta de credito para terminar el registro: ");
-                        String tarjeta = entrada.nextLine();
-
-                        String path = "clientes.txt";
-                        try (BufferedWriter br = new BufferedWriter(new FileWriter(path, true))) {
-                            br.write("cedula,edad,tarjetaCredito\n");
-                            br.write(cedula + "," + edad + "," + tarjeta + "\n");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        usuario = new Cliente(cedula, edad, nombre, apellido, user_txt, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario),tarjeta);
-                        System.out.println("Usuario registrado.");
-                        listaUsuarios.add(usuario);
-                        break;
+                        try{
+                            File archivoCliente = new File("clientes.txt");
+                            boolean yaRegistrado = false;
+                            
+   
+                            
+                            if(!archivoCliente.exists()){
+                                try (BufferedWriter br = new BufferedWriter(new FileWriter(archivoCliente, true))) {
+                               
+                                    br.write("cedula,edad,tarjetaCredito\n");
+                                
+                                }catch (IOException e) {
+                                        e.printStackTrace();
+                                }
+                            }
+                            try(Scanner leer = new Scanner(archivoCliente)){
+                                while(leer.hasNextLine()){
+                                    String lineaCliente = leer.nextLine();
+                                    String arrayDatos[] = lineaCliente.split(",");
+                                    String tarjetaRegistrada = arrayDatos[2];
+                                    String cedulaCliente = arrayDatos[0];
+                                
+                                    if(cedula.equals(cedulaCliente)){
+                                        System.out.println("Ya esta registrado");
+                                        yaRegistrado = true;
+                                        usuario = new Cliente(cedula, edad, nombre, apellido, user_txt, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario),tarjetaRegistrada);
+                                        break;
+                                }   
+                            }
+                            if(!yaRegistrado){
+                                System.out.println("Por favor ingrese su tarjeta de credito para terminar el registro: ");
+                                String tarjeta = entrada.nextLine();
+                                
+                                try (BufferedWriter br = new BufferedWriter(new FileWriter(archivoCliente, true))) {
+                                    
+                                    br.write(cedula + "," + edad + "," + tarjeta + "\n");
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    usuario = new Cliente(cedula, edad, nombre, apellido, user_txt, contrasena_user, celular, TipoUsuario.valueOf(tipo_usuario),tarjeta);
+                                    System.out.println("Usuario registrado.");
+                                    listaUsuarios.add(usuario);
+                                    break;
+                            }
+                            leer.close();
+                        }catch(FileNotFoundException x){
+                            x.printStackTrace();  
+                        }      
+                        
+                    }catch(Exception e){
+                        e.printStackTrace();
                     }
+                    break;
+                }
                     else if(TipoUsuario.valueOf(tipo_usuario).equals(TipoUsuario.R)){
                         try{
                             File archivo = new File("conductores.txt");
