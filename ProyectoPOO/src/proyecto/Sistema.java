@@ -296,27 +296,24 @@ public class Sistema {
                         if (continuar == 1){
                             c.Pagar_servicio(servicioTaxi, c);
                             listaServicios.add(servicioTaxi);
-                            c.listaServiciosSolicitados.add(servicioTaxi);
                             try{
-                            File archivoServicios = new File("servicios.txt");
-                            
-                                                      
-                            if(!archivoServicios.exists()){
-                                try (BufferedWriter br = new BufferedWriter(new FileWriter(archivoServicios, true))) {
-                                    br.write("user,tipoServicio,cedulaCliente,nombreConductor,desde,hasta,fecha,hora,adicional\n");
-                                
-                                }catch (IOException e) {
-                                        e.printStackTrace();
+                                File archivoServicios = new File("servicios.txt");                                
+                                                        
+                                if(!archivoServicios.exists()){
+                                    try (BufferedWriter br = new BufferedWriter(new FileWriter(archivoServicios, true))) {
+                                        br.write("user,tipoServicio,cedulaCliente,nombreConductor,desde,hasta,fecha,hora,adicional\n");
+                                    
+                                    }catch (IOException e) {
+                                            e.printStackTrace();
+                                    }
                                 }
-                            }
-                            
-                            try (BufferedWriter br = new BufferedWriter(new FileWriter(archivoServicios, true))) {
-                                   
-                                    br.write( servicioTaxi.getConductor().getUser() + "," + "T" + "," + c.getCedula() + "," + servicioTaxi.getConductor().getNombre() + "," + origen + "," + destino + "," + servicioTaxi.getFecha()+ ","  + servicioTaxi.getHora()+ "," +  servicioTaxi.getNumPasajeros()+ "\n");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-       
+                                
+                                try (BufferedWriter br = new BufferedWriter(new FileWriter(archivoServicios, true))) {
+                                    
+                                        br.write( servicioTaxi.getConductor().getUser() + "," + "T" + "," + c.getCedula() + "," + servicioTaxi.getConductor().getNombre() + "," + origen + "," + destino + "," + servicioTaxi.getFecha()+ ","  + servicioTaxi.getHora()+ "," +  servicioTaxi.getNumPasajeros()+ "\n");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
    
                             }catch(Exception e){
                                 e.printStackTrace();
@@ -344,18 +341,29 @@ public class Sistema {
                         if (continuarEnc == 1){
                             c.Pagar_servicio(servicioEncomienda, c);
                             listaServicios.add(servicioEncomienda);
-                            c.listaServiciosSolicitados.add(servicioEncomienda);
-  
-                            File archivoServicios = new File("servicios.txt");
-                                                  
+                            try{
+                                File archivoServicios = new File("servicios.txt");
+                                
+                                if(!archivoServicios.exists()){
+                                    try (BufferedWriter br = new BufferedWriter(new FileWriter(archivoServicios, true))) {
+                                        br.write("user,tipoServicio,cedulaCliente,nombreConductor,desde,hasta,fecha,hora,adicional\n");
+                                    
+                                    }catch (IOException e) {
+                                            e.printStackTrace();
+                                    }
+                                }                  
                             
-                            try (BufferedWriter br = new BufferedWriter(new FileWriter(archivoServicios, true))) {
-                                   
-                                    br.write( servicioEncomienda.getConductor().getUser() + "," + "E" + "," + c.getCedula() + "," + servicioEncomienda.getConductor().getNombre() + "," + origen_2 + "," + destino_2 + "," + servicioEncomienda.getFecha()+ ","  + servicioEncomienda.getHora()+"," + servicioEncomienda.getNumProductos()+ "," +servicioEncomienda.getTipoEncomienda().toString() + "\n");
-                            } catch (IOException e) {
+                                try (BufferedWriter br = new BufferedWriter(new FileWriter(archivoServicios, true))) {
+                                    
+                                        br.write( servicioEncomienda.getConductor().getUser() + "," + "E" + "," + c.getCedula() + "," + servicioEncomienda.getConductor().getNombre() + "," + origen_2 + "," + destino_2 + "," + servicioEncomienda.getFecha()+ ","  + servicioEncomienda.getHora()+"," + servicioEncomienda.getNumProductos()+ "," +servicioEncomienda.getTipoEncomienda().toString() + "\n");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+      
+                            }catch(Exception e){
                                 e.printStackTrace();
                             }
-      
+
                         } 
                         break;
                     case 3:

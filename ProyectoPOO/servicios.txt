@@ -1,2 +1,2 @@
 user,tipoServicio,cedulaCliente,nombreConductor,desde,hasta,fecha,hora,adicional
-jgome,T,0923547362,Juan,Pto Azul,Bouganville,2023-12-05,06:10:42.071851500,1
+jgome,E,0923547362,Juan,ecuador,venezuela,2023-12-05,06:36:52.816073200,3,MEDICINA
