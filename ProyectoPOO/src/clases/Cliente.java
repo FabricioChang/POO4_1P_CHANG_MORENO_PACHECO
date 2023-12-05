@@ -1,11 +1,14 @@
 package clases;
 import java.util.Scanner;
 import enums.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Cliente extends Usuario{
     private String tarjeta_de_credito;
     public ArrayList<Servicio> listaServiciosSolicitados = new ArrayList<>();
+    private static String path = "servicios.txt";
     
     public Cliente(String cedula, int edad, String nombre, String apellido, String user, String contrasena, String numero_celular, TipoUsuario tipo_de_usuario, String tarjeta_de_credito){
         super(cedula, edad, nombre, apellido, user, contrasena, numero_celular, tipo_de_usuario);
@@ -82,8 +85,31 @@ public class Cliente extends Usuario{
 
     @Override
     public void Consultar_servicios(){
-        for (Servicio s: listaServiciosSolicitados){
-            System.out.println(s);
+        File file = new File(path);
+        try {
+            Scanner sc = new Scanner(file);
+            sc.nextLine();
+            while(sc.hasNextLine()){
+                String line = sc.nextLine();
+                String[] values = line.split(",");
+                if (values[2].equals(cedula)){
+                    String tipo = values[1];
+                    String cantidad = values[8];
+                    String fecha = values[6];
+                    String hora = values[7];
+                    String origen = values[4];
+                    String destino = values[5];
+                    if(tipo.equals("E")){
+                        String tipo_enc = values[9];
+                        System.out.println("\n/*****************************/\nTipo: Encomienda\nTipo encomienda: " + tipo_enc + "\nCantidad: " + cantidad + "\nFecha: " + fecha + "\nHora: " + hora + "\nDesde: " + origen + "\nHasta: " + destino);
+                    } else if (tipo.equals("T")){
+                        System.out.println("\n/*****************************/\nTipo: Viaje\nCantidad: " + cantidad + "\nFecha: " + fecha + "\nHora: " + hora + "\nDesde: " + origen + "\nHasta: " + destino);
+                    }
+                }
+            }
+        }
+        catch(FileNotFoundException e){
+            e.printStackTrace();
         }
     }
 

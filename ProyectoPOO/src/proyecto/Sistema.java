@@ -303,7 +303,7 @@ public class Sistema {
                                                       
                             if(!archivoServicios.exists()){
                                 try (BufferedWriter br = new BufferedWriter(new FileWriter(archivoServicios, true))) {
-                                    br.write("user,tipoServicio,cedulaCliente,nombreConductor,desde,hasta,fecha,hora\n");
+                                    br.write("user,tipoServicio,cedulaCliente,nombreConductor,desde,hasta,fecha,hora,adicional\n");
                                 
                                 }catch (IOException e) {
                                         e.printStackTrace();
@@ -312,7 +312,7 @@ public class Sistema {
                             
                             try (BufferedWriter br = new BufferedWriter(new FileWriter(archivoServicios, true))) {
                                    
-                                    br.write( servicioTaxi.getConductor().getUser() + "," + "T" + "," + c.getCedula() + "," + servicioTaxi.getConductor().getNombre() + "," + origen + "," + destino + "," + servicioTaxi.getFecha()+ ","  + servicioTaxi.getHora()+"\n");
+                                    br.write( servicioTaxi.getConductor().getUser() + "," + "T" + "," + c.getCedula() + "," + servicioTaxi.getConductor().getNombre() + "," + origen + "," + destino + "," + servicioTaxi.getFecha()+ ","  + servicioTaxi.getHora()+ "," +  servicioTaxi.getNumPasajeros()+ "\n");
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -351,7 +351,7 @@ public class Sistema {
                             
                             try (BufferedWriter br = new BufferedWriter(new FileWriter(archivoServicios, true))) {
                                    
-                                    br.write( servicioEncomienda.getConductor().getUser() + "," + "E" + "," + c.getCedula() + "," + servicioEncomienda.getConductor().getNombre() + "," + origen_2 + "," + destino_2 + "," + servicioEncomienda.getFecha()+ ","  + servicioEncomienda.getHora()+"\n");
+                                    br.write( servicioEncomienda.getConductor().getUser() + "," + "E" + "," + c.getCedula() + "," + servicioEncomienda.getConductor().getNombre() + "," + origen_2 + "," + destino_2 + "," + servicioEncomienda.getFecha()+ ","  + servicioEncomienda.getHora()+"," + servicioEncomienda.getNumProductos()+ "," +servicioEncomienda.getTipoEncomienda().toString() + "\n");
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -367,16 +367,18 @@ public class Sistema {
             }   
             } else if (usuario.getTipoDeUsuario().equals(TipoUsuario.R)){
                 System.out.println("1. Consultar servicios.");
-                System.out.println("2. Salir del sistema.");
+                System.out.println("2. Datos de su vehiculo.");
+                System.out.println("3. Salir del sistema.");
                 do {
                     eleccion = scanner.nextInt();
                     scanner.nextLine();
-                    if (eleccion == 1 || eleccion == 2){
+                    if (eleccion == 1 || eleccion == 2 || eleccion == 3){
                         correcto = true;
                     } else {
                         System.out.println("Por favor ingrese una opcion correcta.");
                         System.out.println("1. Consultar servicios.");
-                        System.out.println("2. Salir del sistema.");
+                        System.out.println("2. Datos de su vehiculo.");
+                        System.out.println("3. Salir del sistema.");
                     }
                 } while (!correcto);
 
@@ -390,6 +392,10 @@ public class Sistema {
                         r.Consultar_servicios();
                         break;
                     case 2:
+                        Conductor rep = (Conductor) usuario;
+                        System.out.println(rep.getVehiculo());
+                        break;
+                    case 3:
                         repetir = false;
                         break;
                 }
