@@ -1,0 +1,4 @@
+user,tipoServicio,cedulaCliente,nombreConductor,desde,hasta,fecha,hora
+jgome,T,0923547362,Juan,Guyas,quito,2023-12-05,00:40:38.639608
+jgome,T,0923547362,Juan,QUITO,ESMERALDAS,2023-12-05,00:41:38.526678100
+jgome,T,0923547362,Juan,Peru,Venezuela,2023-12-05,00:46:09.968618300

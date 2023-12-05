@@ -297,9 +297,35 @@ public class Sistema {
                             c.Pagar_servicio(servicioTaxi, c);
                             listaServicios.add(servicioTaxi);
                             c.listaServiciosSolicitados.add(servicioTaxi);
-                        } 
+                            try{
+                            File archivoServicios = new File("servicios.txt");
+                            
+                                                      
+                            if(!archivoServicios.exists()){
+                                try (BufferedWriter br = new BufferedWriter(new FileWriter(archivoServicios, true))) {
+                                    br.write("user,tipoServicio,cedulaCliente,nombreConductor,desde,hasta,fecha,hora\n");
+                                
+                                }catch (IOException e) {
+                                        e.printStackTrace();
+                                }
+                            }
+                            
+                            try (BufferedWriter br = new BufferedWriter(new FileWriter(archivoServicios, true))) {
+                                   
+                                    br.write( servicioTaxi.getConductor().getUser() + "," + "T" + "," + c.getCedula() + "," + servicioTaxi.getConductor().getNombre() + "," + origen + "," + destino + "," + servicioTaxi.getFecha()+ ","  + servicioTaxi.getHora()+"\n");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+       
+   
+                            }catch(Exception e){
+                                e.printStackTrace();
+                            }
+                        }                      
+                                          
                         break;
-                    case 2:
+                
+                        case 2:
                         System.out.println("Ingrese su punto de origen: ");
                         String origen_2 = scanner.nextLine();
                         System.out.println("Ingrese su destino: ");
@@ -319,6 +345,17 @@ public class Sistema {
                             c.Pagar_servicio(servicioEncomienda, c);
                             listaServicios.add(servicioEncomienda);
                             c.listaServiciosSolicitados.add(servicioEncomienda);
+  
+                            File archivoServicios = new File("servicios.txt");
+                                                  
+                            
+                            try (BufferedWriter br = new BufferedWriter(new FileWriter(archivoServicios, true))) {
+                                   
+                                    br.write( servicioEncomienda.getConductor().getUser() + "," + "E" + "," + c.getCedula() + "," + servicioEncomienda.getConductor().getNombre() + "," + origen_2 + "," + destino_2 + "," + servicioEncomienda.getFecha()+ ","  + servicioEncomienda.getHora()+"\n");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+      
                         } 
                         break;
                     case 3:
@@ -327,7 +364,7 @@ public class Sistema {
                     case 4:
                         repetir = false;
                         break;
-                }
+            }   
             } else if (usuario.getTipoDeUsuario().equals(TipoUsuario.R)){
                 System.out.println("1. Consultar servicios.");
                 System.out.println("2. Salir del sistema.");
